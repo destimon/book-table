@@ -1,0 +1,29 @@
+@import '../misc/variables';
+
+.navbar {
+  background-color: $primary-color;
+  ul {
+    justify-content: center;
+    list-style-type: none;
+    margin-right: 0;
+    padding: 0;
+    overflow: hidden;
+    
+    li {
+      float: left;
+
+      a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $secondary-color;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
