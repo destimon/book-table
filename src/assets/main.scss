@@ -2,7 +2,11 @@
 
 body {
   font-family: 'Poppins', sans-serif !important;
-  background: linear-gradient(hsl(190, 100%, 50%), hsl(250, 100%, 45%)) fixed;
+  // background: linear-gradient(hsl(190, 100%, 50%), hsl(250, 100%, 45%)) fixed;
+  background-image: url('https://78.media.tumblr.com/c6a90a3f072c8f0110a38b59778995c7/tumblr_n6yi62QgqP1tacroio1_1280.png');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .book-page-img {
