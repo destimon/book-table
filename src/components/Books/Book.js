@@ -31,14 +31,17 @@ const Book = (props) => {
         
         ) : (
           <Fragment>
-            <div className="col s4">
+            <div className="col s3">
               <div className="container">
-                <img className="responsive book-page-img" alt="book" src={currentBook.thumbnail}></img>
+                <img className="book-page-img" alt="book" src={currentBook.thumbnail}></img>
               </div>
             </div>
-            <div className="col s8">
-              <h4>{currentBook.title}</h4>
-              <p>{currentBook.description}</p>
+              <div className="col s9">
+            <div className="container">
+                <h5>{currentBook.title}</h5>
+                <div className="divider"></div>
+                <p>{currentBook.description}</p>
+              </div>
             </div>
           </Fragment>
         )
