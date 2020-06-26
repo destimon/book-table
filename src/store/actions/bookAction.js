@@ -5,6 +5,8 @@ import {
   SET_CURRENT_BOOK_LOADING,
   SET_BOOKS_LOADING,
 } from '../actions/types';
+import axios from 'axios';
+import _ from 'lodash';
 
 export const getBooks = (bookName) => async (dispatch) => {
   setBooksLoading();
@@ -25,16 +27,21 @@ export const getBooks = (bookName) => async (dispatch) => {
 }
 
 export const getBook = (bookId) => async (dispatch) => {
+  const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`
+
   setCurrentBookLoading();
   try {
-    let res = await googleBooks.search(bookId, {
-      field: 'id',
-      limit: 1
-    })
-
+    const { data: { volumeInfo }} = await axios.get(url)
+    
+    const data = {
+      title: volumeInfo.title,
+      description: volumeInfo.description,
+      thumbnail: _.get(volumeInfo, 'imageLinks.thumbnail'),
+    }
+    
     dispatch ({
       type: GET_BOOK,
-      payload: res[0],
+      payload: data,
     })
   } catch(err) {
     console.error(err);

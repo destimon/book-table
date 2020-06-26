@@ -16,7 +16,7 @@ const Book = (props) => {
   
   useEffect(() => {
     getBook(match.params.book);
-  }, [])
+  }, [getBook, match.params.book])
 
   if (currentBookLoading || currentBook === null) {
     return <Preloader />
@@ -28,16 +28,15 @@ const Book = (props) => {
           <h2>Error occured</h2>
           <i className="material-icons">error</i><span>Book doesnt exist!</span>
         </div>
-        
         ) : (
           <Fragment>
-            <div className="col s3">
+            <div className="col s0 m4 l4 xl1">
               <div className="container">
-                <img className="book-page-img" alt="book" src={currentBook.thumbnail}></img>
+                <img className="book-page-img" alt="book" src={currentBook.thumbnail || '/noimage.jpeg'}></img>
               </div>
             </div>
-              <div className="col s9">
-            <div className="container">
+            <div className="col s12 m6 l8 xl11">
+              <div className="container">
                 <h5>{currentBook.title}</h5>
                 <div className="divider"></div>
                 <p>{currentBook.description}</p>

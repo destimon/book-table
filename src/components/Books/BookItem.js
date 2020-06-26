@@ -13,7 +13,7 @@ const BookItem = ({ book }) => {
   return (
       <li className="collection-item book-item" onClick={showBook}>
         <div className="row">
-          <div className="col s3">
+          <div className="col s6 m4 l2 xl2">
             <img
               alt="book" 
               className="book-image" 
@@ -29,7 +29,7 @@ const BookItem = ({ book }) => {
                   }
               </div></blockquote>
           </div>
-          <div className="col s9">
+          <div className="col s6 m8 l10 xl10">
             <h5>{book.title}</h5>
             <div className="divider"></div>
             <p>Description...</p>
