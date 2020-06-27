@@ -22,15 +22,15 @@ const SignUp = ({ userPostFetch }) => {
   }
 
   return (
-    <form onSubmit={this.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <h1>Sign Up For An Account</h1>
 
       <label>Username</label>
       <input
         name='username'
         placeholder='Username'
-        value={this.state.username}
-        onChange={this.handleChange}
+        value={user.username}
+        onChange={handleChange}
         /><br/>
 
       <label>Password</label>
@@ -38,25 +38,17 @@ const SignUp = ({ userPostFetch }) => {
         type='password'
         name='password'
         placeholder='Password'
-        value={this.state.password}
-        onChange={this.handleChange}
+        value={user.password}
+        onChange={handleChange}
         /><br/>
 
-      <label>Avatar</label>
-        <input
-          name='avatar'
-          placeholder='Avatar (URL)'
-          value={this.state.avatar}
-          onChange={this.handleChange}
-          /><br/>
-
-        <label>Bio</label>
-        <textarea
-          name='bio'
-          placeholder='Bio'
-          value={this.state.bio}
-          onChange={this.handleChange}
-          /><br/>
+      <label>Bio</label>
+      <textarea
+        name='bio'
+        placeholder='Bio'
+        value={this.state.bio}
+        onChange={this.handleChange}
+      /><br/>
 
       <input type='submit'/>
     </form>

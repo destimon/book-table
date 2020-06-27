@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Book from './components/Books/Book';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route exact path='/' component={Home}></Route>
             <Route exact path='/books/:book' component={Book}></Route>
             <Route exact path='/about' component={About}></Route>
+            <Route exact path='/profile' component={Profile}></Route>
             <Route component={NotFound}></Route>
           </Switch>
         </div>
