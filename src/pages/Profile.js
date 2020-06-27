@@ -1,6 +1,13 @@
 import React from 'react'
+import SignUp from '../components/Auth/SignUp'
 
 const Profile = () => {
+  if (true) {
+    return (
+      <SignUp />
+    )
+  }
+
   return (
     <div className="row">
       <div className="container">

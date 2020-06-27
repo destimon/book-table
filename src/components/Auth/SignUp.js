@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import {userPostFetch} from '../redux/actions';
+import { userAuthPost } from '../../store/actions/userAction'
 
-const SignUp = ({ userPostFetch }) => {
+const SignUp = ({ userAuthPost }) => {
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -18,45 +18,45 @@ const SignUp = ({ userPostFetch }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    userPostFetch(user);
+    userAuthPost(user);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Sign Up For An Account</h1>
+    <div className="container">
+      <div className="row">
+        <div className="col l6">
+          <form className="left-align" onSubmit={handleSubmit}>
+            <div className="input-field">
+              <input 
+                placeholder="Username" 
+                id="username" 
+                type="text" 
+                name="username"
+                className="validate"
+                value={user.username}
+                onChange={handleChange}
+              />
+              <label htmlFor="username">Username</label>
+            </div>
 
-      <label>Username</label>
-      <input
-        name='username'
-        placeholder='Username'
-        value={user.username}
-        onChange={handleChange}
-        /><br/>
-
-      <label>Password</label>
-      <input
-        type='password'
-        name='password'
-        placeholder='Password'
-        value={user.password}
-        onChange={handleChange}
-        /><br/>
-
-      <label>Bio</label>
-      <textarea
-        name='bio'
-        placeholder='Bio'
-        value={this.state.bio}
-        onChange={this.handleChange}
-      /><br/>
-
-      <input type='submit'/>
-    </form>
+            <div className="input-field">
+              <input 
+                placeholder='Password'
+                id="password" 
+                type='password'
+                name='password'
+                className="validate"
+                value={user.password}
+                onChange={handleChange}
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            <input className="btn" value="Sign up" type='submit'/>
+          </form>
+        </div>
+      </div>
+    </div>
   )
 }
 
-const mapDispatchToProps = dispatch => ({
-  userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
-})
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(null, { userAuthPost })(SignUp);
