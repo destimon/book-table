@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { getBook } from '../../store/actions/bookAction';
 import { connect } from 'react-redux';
 import Preloader from '../layout/Preloader';
+import { Link } from 'react-router-dom';
 
 const Book = (props) => {
   const {
@@ -38,7 +39,11 @@ const Book = (props) => {
             <div className="col s12 m6 l8 xl11">
               <div className="container">
                 <h5>{currentBook.title}</h5>
-                <div className="divider"></div>
+                <div className="divider">
+                </div>
+                <Link to="/" className="waves-effect blue-grey darken-4 btn-small">
+                  <i className="material-icons left">keyboard_backspace</i>Back 
+                </Link>
                 <p>{currentBook.description}</p>
               </div>
             </div>
