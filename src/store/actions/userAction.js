@@ -1,6 +1,7 @@
 import {
   REGISTER_USER,
   LOAD_USER,
+  LOGOUT_USER,
   SET_USER_PROFILE_LOADING
 } from '../actions/types';
 import axios from 'axios';
@@ -53,5 +54,12 @@ export const loadUser = () => async (dispatch) => {
       payload: null
     })
     console.error(err);
+  }
+}
+
+// Logout current user
+export const logoutUser = () => {
+  return {
+    type: LOGOUT_USER,
   }
 }

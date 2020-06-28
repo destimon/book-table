@@ -1,7 +1,8 @@
 import {
   REGISTER_USER,
   LOAD_USER,
-  SET_USER_PROFILE_LOADING
+  SET_USER_PROFILE_LOADING,
+  LOGOUT_USER
 } from '../actions/types';
 
 const userInitialState = {
@@ -27,6 +28,13 @@ export const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         userProfileLoading: true,
+      }
+    case LOGOUT_USER:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        user: null,
+        token: null,
       }
     default:
       return state

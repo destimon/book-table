@@ -54,28 +54,31 @@ export const getBook = (bookId) => async (dispatch) => {
   }
 }
 
-// Clear book in store
-export const clearBook = () => {
-  return {
-    type: CLEAR_BOOK
-  }
-}
-
+// Current book loading
 export const setCurrentBookLoading = () => {
   return {
     type: SET_CURRENT_BOOK_LOADING,
   }
 }
 
+// Books loading
 export const setBooksLoading = () => {
   return {
     type: SET_BOOKS_LOADING,
   }
 }
 
+// Clear all books in list
 export const clearBooks = () => {
   return ({
     type: GET_BOOKS,
     payload: [],
   })
+}
+
+// Clear book in store
+export const clearBook = () => {
+  return {
+    type: CLEAR_BOOK
+  }
 }

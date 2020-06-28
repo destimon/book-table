@@ -5,13 +5,12 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 module.exports = (app) => {
-
   // @route     GET api/profile
   // @desc      Get user info
   // @access    Private
   app.get('/api/profile', auth, async (req, res) => {
     try {
-      let data = await User.findById(req.user.id)
+      const data = await User.findById(req.user.id)
       res.json(data);
     } catch (err) {
       res.json(err);
@@ -32,7 +31,6 @@ module.exports = (app) => {
     ).isLength({min: 6}),
   ],
   (req, res) => {
-    console.log(req.body);
     const errors = validationResult(req)
     
     if (!errors.isEmpty()) {

@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react'
 import SignUp from '../components/Auth/SignUp'
 import { connect } from 'react-redux';
-import { loadUser } from '../store/actions/userAction';
+import { loadUser, logoutUser } from '../store/actions/userAction';
 import Preloader from '../components/layout/Preloader';
 
-const Profile = ({ user: { user, userProfileLoading }, loadUser }) => {
+const Profile = (props) => {
+  const {
+    user: {
+      user,
+      userProfileLoading
+    },
+    loadUser,
+    logoutUser
+  } = props;
+
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line
@@ -18,9 +27,15 @@ const Profile = ({ user: { user, userProfileLoading }, loadUser }) => {
       (
         <div className="row">
           <div className="container">
-            <h3>Profile</h3>
             <div className="col l4">
+              <h3>Profile</h3>
               <p>Username: {user.username}</p>
+              <button 
+                className="btn blue-grey darken-4"
+                onClick={logoutUser}
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
@@ -37,4 +52,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { loadUser })(Profile);
+export default connect(mapStateToProps, { 
+  loadUser, 
+  logoutUser 
+})(Profile);
