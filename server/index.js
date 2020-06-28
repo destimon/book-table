@@ -7,6 +7,9 @@ const routes = require('./router/index');
 // Include api routes
 routes(app);
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 // Connect data base
 mongodb_connect();
 
