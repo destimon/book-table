@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import { userAuthPost } from '../../store/actions/userAction'
+import { registerUser } from '../../store/actions/userAction'
 
-const SignUp = ({ userAuthPost }) => {
+const SignUp = ({ registerUser }) => {
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -18,7 +18,7 @@ const SignUp = ({ userAuthPost }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    userAuthPost(user);
+    registerUser(user);
   }
 
   return (
@@ -59,4 +59,4 @@ const SignUp = ({ userAuthPost }) => {
   )
 }
 
-export default connect(null, { userAuthPost })(SignUp);
+export default connect(null, { registerUser })(SignUp);

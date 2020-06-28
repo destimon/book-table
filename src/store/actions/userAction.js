@@ -1,28 +1,26 @@
 import {
-  SET_USER_AUTH_POST
+  REGISTER_USER
 } from '../actions/types';
-// import axios from 'axios';
+import axios from 'axios';
 // import _ from 'lodash';
 
-export const userAuthPost = (user) => async (dispatch) => (
-  fetch("http://localhost:3001/api/auth/signup", {
-    method: "POST",
+export const registerUser = (user) => async (dispatch) => {
+  const config = {
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify({user})
-  })
-  .then(resp => resp.json())
-  .then(data => {
-    if (data.message) {
-      //Тут прописываем логику
-    } else {
-      localStorage.setItem("token", data.jwt)
-      dispatch({
-        type: SET_USER_AUTH_POST,
-        payload: data.user
-      })
+      'Content-Type': 'application/json'
     }
-  })
-)
+  };
+
+  try {
+    const res = await axios.post('http://localhost:3001/api/auth/signup', user, config);
+
+    console.log(res)
+    localStorage.setItem("token", res.data.token);
+    dispatch({
+      type: REGISTER_USER,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err)
+  }
+}

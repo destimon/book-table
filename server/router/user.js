@@ -32,14 +32,14 @@ module.exports = (app) => {
     ).isLength({min: 6}),
   ],
   (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     const errors = validationResult(req)
-  
+    
     if (!errors.isEmpty()) {
-      return res.status(400).json({errors: errors.array()});
+      return res.json({errors: errors.array()});
     } else {
       const {username, password} = req.body;
-
+      
       User.hashPassword(password, async (err, passwordHash) => {
         if (err) return res.json(err)
         let user = await User.findOne({username});
