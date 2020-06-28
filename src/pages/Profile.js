@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { loadUser } from '../store/actions/userAction';
 import Preloader from '../components/layout/Preloader';
 
-const Profile = ({ user: { user, userProfileLoading}, loadUser }) => {
+const Profile = ({ user: { user, userProfileLoading }, loadUser }) => {
   useEffect(() => {
     loadUser();
   }, [])
@@ -13,22 +13,19 @@ const Profile = ({ user: { user, userProfileLoading}, loadUser }) => {
     return <Preloader />
   } else {
     return (
-      (user) ? (
+      (user) ? 
+      (
         <div className="row">
-        <div className="container">
-          <div className="col l4">
-            <h2>{user.username}</h2>
-          </div>
-          <div className="col l8">
-            <h2>Stuff</h2>
+          <div className="container">
+            <h3>Profile</h3>
+            <div className="col l4">
+              <p>Username: {user.username}</p>
+            </div>
           </div>
         </div>
-      </div>
       ) 
       :
-      (
-        <SignUp />
-      )
+      ( <SignUp /> )
     )
   }
 }
