@@ -4,6 +4,7 @@ import {
   GET_BOOK,
   SET_CURRENT_BOOK_LOADING,
   SET_BOOKS_LOADING,
+  CLEAR_BOOK,
 } from '../actions/types';
 import axios from 'axios';
 import _ from 'lodash';
@@ -26,6 +27,7 @@ export const getBooks = (bookName) => async (dispatch) => {
   }
 }
 
+// Get chosen book
 export const getBook = (bookId) => async (dispatch) => {
   const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`
 
@@ -44,7 +46,18 @@ export const getBook = (bookId) => async (dispatch) => {
       payload: data,
     })
   } catch(err) {
+    dispatch ({
+      type: GET_BOOK,
+      payload: null,
+    })
     console.error(err);
+  }
+}
+
+// Clear book in store
+export const clearBook = () => {
+  return {
+    type: CLEAR_BOOK
   }
 }
 

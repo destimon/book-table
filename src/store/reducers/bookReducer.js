@@ -2,7 +2,8 @@ import {
   GET_BOOKS, 
   GET_BOOK,
   SET_CURRENT_BOOK_LOADING,
-  SET_BOOKS_LOADING
+  SET_BOOKS_LOADING,
+  CLEAR_BOOK
 } from '../actions/types';
 
 const bookInitialState = {
@@ -35,6 +36,12 @@ export const bookReducer = (state = bookInitialState, action) => {
       return {
         ...state,
         booksLoading: true,
+      }
+    case CLEAR_BOOK:
+      return {
+        ...state,
+        currentBook: null,
+        currentBookLoading: true,
       }
     default:
       return state

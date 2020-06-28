@@ -1,6 +1,6 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getBook } from '../../store/actions/bookAction';
+import { getBook, clearBook } from '../../store/actions/bookAction';
 import { connect } from 'react-redux';
 import Preloader from '../layout/Preloader';
 import { Link } from 'react-router-dom';
@@ -12,46 +12,52 @@ const Book = (props) => {
       currentBookLoading,
     },
     getBook,
+    clearBook,
     match,
   } = props;
   
   useEffect(() => {
     getBook(match.params.book);
-  }, [getBook, match.params.book])
+    return () => {
+      clearBook();
+    }
+    // eslint-disable-next-line
+  }, [])
 
-  if (currentBookLoading || currentBook === null) {
+  if (currentBookLoading) {
     return <Preloader />
-  }
-  return (
-    <div className="row">
-      { !currentBookLoading && !currentBook ? (
+  } else {
+    return (
+      currentBook ? 
+      (
+        <div className="row">
+          <div className="col s0 m4 l4 xl1">
+            <div className="container">
+              <img className="book-page-img" alt="book" src={currentBook.thumbnail || '/noimage.jpeg'}></img>
+            </div>
+          </div>
+          <div className="col s12 m6 l8 xl11">
+            <div className="container">
+              <h5>{currentBook.title}</h5>
+              <div className="divider">
+              </div>
+              <Link to="/" className="waves-effect blue-grey darken-4 btn-small">
+                <i className="material-icons left">keyboard_backspace</i>Back 
+              </Link>
+              <p>{currentBook.description}</p>
+            </div>
+          </div>
+        </div>
+      ) 
+      : 
+      (
         <div className="container">
           <h2>Error occured</h2>
           <i className="material-icons">error</i><span>Book doesnt exist!</span>
         </div>
-        ) : (
-          <Fragment>
-            <div className="col s0 m4 l4 xl1">
-              <div className="container">
-                <img className="book-page-img" alt="book" src={currentBook.thumbnail || '/noimage.jpeg'}></img>
-              </div>
-            </div>
-            <div className="col s12 m6 l8 xl11">
-              <div className="container">
-                <h5>{currentBook.title}</h5>
-                <div className="divider">
-                </div>
-                <Link to="/" className="waves-effect blue-grey darken-4 btn-small">
-                  <i className="material-icons left">keyboard_backspace</i>Back 
-                </Link>
-                <p>{currentBook.description}</p>
-              </div>
-            </div>
-          </Fragment>
-        )
-      }
-    </div>
-  )
+      )
+    )
+  }
 }
 
 Book.propTypes = {
@@ -68,5 +74,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps, 
-  { getBook }
+  { getBook, clearBook }
 )(Book);

@@ -7,6 +7,7 @@ import Preloader from '../components/layout/Preloader';
 const Profile = ({ user: { user, userProfileLoading }, loadUser }) => {
   useEffect(() => {
     loadUser();
+    // eslint-disable-next-line
   }, [])
 
   if (userProfileLoading) {
