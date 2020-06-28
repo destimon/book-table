@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import { registerUser } from '../../store/actions/userAction'
+import { signInUser } from '../../store/actions/userAction'
 
-const SignUp = (props) => {
-  const [formData, setFormData] = useState({
+const SignIn = ({ signInUser, history }) => {
+  const [user, setUser] = useState({
     username: '',
     password: '',
-    bio: ''
   });
 
-  const {
-    history, registerUser
-  } = props;
-
   const handleChange = e => {
-    setFormData({
-      ...formData,
+    setUser({
+      ...user,
       [e.target.name]: e.target.value,
     });
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    registerUser(formData);
+    signInUser(user);
     history.push('/');
   }
 
@@ -36,7 +31,7 @@ const SignUp = (props) => {
               type="text" 
               name="username"
               className="validate"
-              value={formData.username}
+              value={user.username}
               onChange={handleChange}
             />
             <label htmlFor="username">Username</label>
@@ -48,27 +43,16 @@ const SignUp = (props) => {
               type='password'
               name='password'
               className="validate"
-              value={formData.password}
+              value={user.password}
               onChange={handleChange}
             />
             <label htmlFor="password">Password</label>
           </div>
-          <div className="input-field">
-            <input
-              id="bio" 
-              type='text'
-              name='bio'
-              className="validate"
-              value={formData.bio}
-              onChange={handleChange}
-            />
-            <label htmlFor="bio">Bio</label>
-          </div>
-          <input className="right btn blue-grey darken-4" value="Sign up" type='submit'/>
+          <input className="right btn blue-grey darken-4" value="Sign in" type='submit'/>
         </form>
       </div>
     </div>
   )
 }
 
-export default connect(null, { registerUser })(SignUp);
+export default connect(null, { signInUser })(SignIn);

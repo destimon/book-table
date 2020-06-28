@@ -2,7 +2,8 @@ import {
   REGISTER_USER,
   LOAD_USER,
   LOGOUT_USER,
-  SET_USER_PROFILE_LOADING
+  SET_USER_PROFILE_LOADING,
+  SIGN_IN_USER
 } from '../actions/types';
 import axios from 'axios';
 // import _ from 'lodash';
@@ -24,9 +25,29 @@ export const registerUser = (user) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (err) {
-    console.log(err)
   }
 }
+
+// Sign in to user's profile
+export const signInUser = (user) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const res = await axios.post('http://localhost:3001/api/auth/signin', user, config);
+
+    localStorage.setItem("token", res.data.token);
+    dispatch({
+      type: SIGN_IN_USER,
+      payload: res.data.token,
+    })
+    dispatch(loadUser());
+  } catch (err) {
+  }
+} 
 
 export const setUserProfileLoading = () => {
   return {
@@ -53,7 +74,6 @@ export const loadUser = () => async (dispatch) => {
       type: LOAD_USER,
       payload: null
     })
-    console.error(err);
   }
 }
 

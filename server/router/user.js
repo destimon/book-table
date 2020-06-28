@@ -3,6 +3,7 @@ const User = require('../models/user');
 const vars = require('../config/vars');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
   // @route     GET api/profile
@@ -17,6 +18,66 @@ module.exports = (app) => {
     }
   })
   
+  // @route     POST api/auth/signin
+  // @desc      Sign in user
+  // @access    Public
+  app.post(
+    '/api/auth/signin',
+    [
+      check('username', 'Please add name')
+      .not()
+      .isEmpty(),
+      check(
+        'password',
+        'Please enter a password',
+      ).not()
+      .isEmpty(),
+    ],
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+      }
+
+      const {username, password} = req.body;
+
+      try {
+        let user = await User.findOne({username});
+
+        if (!user) {
+          return res.status(400).json({msg: 'Invalid Credentials'});
+        }
+
+        const isMatch = await bcrypt.compare(password, user.passwordHash);
+
+        if (!isMatch) {
+          return res.status(400).json({msg: 'Invalid Credentials'});
+        }
+
+        const payload = {
+          user: {
+            id: user.id,
+          },
+        };
+
+        jwt.sign(
+          payload,
+          vars.jwt_secret,
+          {
+            expiresIn: 360000,
+          },
+          (err, token) => {
+            if (err) throw err;
+            res.json({token});
+          },
+        );
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+      }
+    },
+  );
+
   // @route     POST api/auth/signup
   // @desc      Regiter a user
   // @access    Public
@@ -65,7 +126,6 @@ module.exports = (app) => {
               expiresIn: 360000,
             },
             (err, token) => {
-              console.log(err)
               if (err) throw err;
               res.json({token});
             },
