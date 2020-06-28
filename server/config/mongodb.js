@@ -4,8 +4,9 @@ const config = require('./vars');
 module.exports = async () => {
   try {
     await mongoose.connect(config.db_url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
     })
 
     console.log('Mongoose connected');

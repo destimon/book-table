@@ -5,7 +5,7 @@ import {
 // import _ from 'lodash';
 
 export const userAuthPost = (user) => async (dispatch) => (
-  fetch("http://localhost:3000/api/v1/users", {
+  fetch("http://localhost:3001/api/auth/signup", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

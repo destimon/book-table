@@ -3,12 +3,14 @@ const app = express();
 const PORT = process.env.PORT || 3001; 
 const mongodb_connect = require('./config/mongodb');
 const routes = require('./router/index');
+const cors = require('cors');
+
+// Init Middleware
+app.use(express.json({ extended: true }));
+app.use(cors());
 
 // Include api routes
 routes(app);
-
-// Init Middleware
-app.use(express.json({ extended: false }));
 
 // Connect data base
 mongodb_connect();
