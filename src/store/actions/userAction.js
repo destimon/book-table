@@ -16,7 +16,6 @@ export const registerUser = (user) => async (dispatch) => {
   try {
     const res = await axios.post('http://localhost:3001/api/auth/signup', user, config);
 
-    console.log(res)
     localStorage.setItem("token", res.data.token);
     dispatch({
       type: REGISTER_USER,
@@ -43,8 +42,7 @@ export const loadUser = () => async (dispatch) => {
   }
   try {
     const res = await axios.get(`http://localhost:3001/api/profile`, config)
-  
-    console.log(res)
+
     dispatch({
       type: LOAD_USER,
       payload: res.data
