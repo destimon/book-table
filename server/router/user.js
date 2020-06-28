@@ -6,12 +6,12 @@ const { check, validationResult } = require('express-validator');
 
 module.exports = (app) => {
 
-  // @route     GET api/users/:username
+  // @route     GET api/profile
   // @desc      Get user info
   // @access    Private
-  app.get('/api/users/:username', auth, async (req, res) => {
+  app.get('/api/profile', auth, async (req, res) => {
     try {
-      let data = await User.findOne({ username: req.params.username })
+      let data = await User.findById(req.user.id)
       res.json(data);
     } catch (err) {
       res.json(err);

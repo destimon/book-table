@@ -1,5 +1,7 @@
 import {
-  REGISTER_USER
+  REGISTER_USER,
+  LOAD_USER,
+  SET_USER_PROFILE_LOADING
 } from '../actions/types';
 import axios from 'axios';
 // import _ from 'lodash';
@@ -18,9 +20,40 @@ export const registerUser = (user) => async (dispatch) => {
     localStorage.setItem("token", res.data.token);
     dispatch({
       type: REGISTER_USER,
-      payload: res.data
+      payload: res.data.token
     });
+    dispatch(loadUser());
   } catch (err) {
     console.log(err)
+  }
+}
+
+export const setUserProfileLoading = () => {
+  return {
+    type: SET_USER_PROFILE_LOADING
+  }
+}
+
+export const loadUser = () => async (dispatch) => {
+  dispatch(setUserProfileLoading());
+  const config = {
+    headers: {
+      'x-auth-token': localStorage.getItem("token"),
+    }
+  }
+  try {
+    const res = await axios.get(`http://localhost:3001/api/profile`, config)
+  
+    console.log(res)
+    dispatch({
+      type: LOAD_USER,
+      payload: res.data
+    })
+  } catch (err) {
+    dispatch({
+      type: LOAD_USER,
+      payload: null
+    })
+    console.error(err);
   }
 }
