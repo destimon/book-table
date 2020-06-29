@@ -2,10 +2,17 @@ import React, { Fragment, useState, useEffect } from 'react'
 import SignUp from '../components/Auth/SignUp';
 import SignIn from '../components/Auth/SignIn';
 import { connect } from 'react-redux';
-import { loadUser } from '../store/actions/userAction';
+import PropTypes from 'prop-types'
 
-const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser, history}) => {
-  const [ signForm, setSignForm ] = useState(true);
+const Authorization = (props) => {
+  const [ signUpForm, setSignUpForm ] = useState(true);
+
+  const {
+    user: {
+      isAuthenticated,
+    },
+    history
+  } = props;
 
   useEffect(() => {
     if (isAuthenticated) history.push('/profile');
@@ -13,10 +20,10 @@ const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser
   }, [isAuthenticated])
 
   const changeForm = () => {
-    setSignForm(!signForm)
+    setSignUpForm(!signUpForm)
   }
 
-  if (signForm) {
+  if (signUpForm) {
     return (
       <div className="container">
         <Fragment>
@@ -52,10 +59,14 @@ const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser
 
 }
 
+Authorization.propTypes = {
+  user: PropTypes.object.isRequired,
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user
   }
 }
 
-export default connect(mapStateToProps, {loadUser})(Authorization);
+export default connect(mapStateToProps)(Authorization);

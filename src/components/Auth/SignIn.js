@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import { signInUser } from '../../store/actions/userAction'
+import PropTypes from 'prop-types'
 
 const SignIn = ({ signInUser, history }) => {
   const [user, setUser] = useState({
@@ -53,6 +54,10 @@ const SignIn = ({ signInUser, history }) => {
       </div>
     </div>
   )
+}
+
+SignIn.propTypes = {
+  signInUser: PropTypes.func.isRequired,
 }
 
 export default connect(null, { signInUser })(SignIn);

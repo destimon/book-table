@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import { registerUser } from '../../store/actions/userAction'
+import PropTypes from 'prop-types'
 
 const SignUp = (props) => {
   const [formData, setFormData] = useState({
@@ -69,6 +70,10 @@ const SignUp = (props) => {
       </div>
     </div>
   )
+}
+
+SignUp.propTypes = {
+  registerUser: PropTypes.func.isRequired,
 }
 
 export default connect(null, { registerUser })(SignUp);
