@@ -4,15 +4,14 @@ import SignIn from '../components/Auth/SignIn';
 import { connect } from 'react-redux';
 import { loadUser } from '../store/actions/userAction';
 
-const Authorization = ({ user: { user }, loadUser, history}) => {
+const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser, history}) => {
   const [ signForm, setSignForm ] = useState(true);
 
-  // useEffect(() => {
-  //   loadUser();
-  //   if (user) history.push('/');
-  //   console.log(user)
-  //   // eslint-disable-next-line
-  // }, [])
+  useEffect(() => {
+    if (isAuthenticated) history.push('/');
+    console.log(isAuthenticated)
+    // eslint-disable-next-line
+  }, [])
 
   const changeForm = () => {
     setSignForm(!signForm)

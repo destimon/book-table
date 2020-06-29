@@ -2,22 +2,20 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { loadUser, logoutUser } from '../store/actions/userAction';
 import Preloader from '../components/layout/Preloader';
+import { Route, Redirect } from 'react-router-dom';
 
 const Profile = (props) => {
   const {
     user: {
       user,
+      isAuthenticated,
       userProfileLoading
     },
-    loadUser,
     logoutUser,
     history
   } = props;
 
   useEffect(() => {
-    loadUser();
-    console.log(user)
-    if (!user) history.push('/auth');
     // eslint-disable-next-line
   }, [])
 

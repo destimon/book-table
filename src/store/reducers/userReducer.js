@@ -9,6 +9,7 @@ const userInitialState = {
   user: null,
   token: null,
   userProfileLoading: true,
+  isAuthenticated: null,
 }
 
 export const userReducer = (state = userInitialState, action) => {
@@ -17,12 +18,14 @@ export const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         token: action.payload,
+        isAuthenticated: true,
       }
     case LOAD_USER:
       return {
         ...state,
         user: action.payload,
         userProfileLoading: false,
+        isAuthenticated: true,
       }
     case SET_USER_PROFILE_LOADING:
       return {
@@ -35,6 +38,7 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         user: null,
         token: null,
+        isAuthenticated: false,
       }
     default:
       return state

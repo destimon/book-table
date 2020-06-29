@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { loadUser } from '../../store/actions/userAction';
 
-const Navbar = ({ user: { user }, loadUser }) => {
+const Navbar = ({ user: { isAuthenticated }, loadUser }) => {
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line

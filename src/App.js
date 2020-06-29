@@ -10,6 +10,7 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Authorization from './pages/Authorization';
+import PrivateRoute from './components/Routing/PrivateRoute';
 
 const App = () => {
   return (
@@ -21,7 +22,7 @@ const App = () => {
             <Route exact path='/' component={Home}></Route>
             <Route exact path='/books/:book' component={Book}></Route>
             <Route exact path='/about' component={About}></Route>
-            <Route exact path='/profile' component={Profile}></Route>
+            <PrivateRoute exact path='/profile' component={Profile}></PrivateRoute>
             <Route exact path='/auth' component={Authorization}></Route>
             <Route component={NotFound}></Route>
           </Switch>
