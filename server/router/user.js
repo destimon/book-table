@@ -97,7 +97,7 @@ module.exports = (app) => {
     if (!errors.isEmpty()) {
       return res.json({errors: errors.array()});
     } else {
-      const {username, password} = req.body;
+      const {username, password, bio} = req.body;
       
       User.hashPassword(password, async (err, passwordHash) => {
         if (err) return res.json(err)
@@ -107,6 +107,7 @@ module.exports = (app) => {
         user = new User({
           username,
           passwordHash,
+          bio
         });
         
         try {

@@ -8,8 +8,7 @@ const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser
   const [ signForm, setSignForm ] = useState(true);
 
   useEffect(() => {
-    if (isAuthenticated) history.push('/');
-    console.log(isAuthenticated)
+    if (isAuthenticated) history.push('/profile');
     // eslint-disable-next-line
   }, [isAuthenticated])
 

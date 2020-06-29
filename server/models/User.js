@@ -12,6 +12,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  bio: {
+    type: String,
+    required: false,
+  }
 });
 
 UserSchema.statics.hashPassword = (passwordRaw, cb) => {

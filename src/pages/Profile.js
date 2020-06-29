@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { loadUser, logoutUser } from '../store/actions/userAction';
 import Preloader from '../components/layout/Preloader';
-import { Route, Redirect } from 'react-router-dom';
 
 const Profile = (props) => {
   const {
@@ -16,24 +15,27 @@ const Profile = (props) => {
   } = props;
 
   useEffect(() => {
-    if (!isAuthenticated) history.push('/auth');
+    if (!isAuthenticated && !userProfileLoading) history.push('/auth');
     // eslint-disable-next-line
-  }, [])
+  }, [isAuthenticated])
 
   const clickLogout = () => {
     logoutUser();
     history.push('/auth');
   }
 
-  if (userProfileLoading || !user) {
+  if (userProfileLoading) {
     return <Preloader />
   } else {
     return (
       <div className="row">
         <div className="container">
-          <div className="col l4">
-            <h3>Profile</h3>
-            <p>Username: {user.username}</p>
+          <div className="col l3">
+            <img alt="avatar" className="avatar" src="/default_avatar.png"></img>
+          </div>
+          <div className="col l9">
+            <h4>{user.username}</h4>
+            <p>{user.bio}</p>
             <button 
               className="btn blue-grey darken-4"
               onClick={clickLogout}
