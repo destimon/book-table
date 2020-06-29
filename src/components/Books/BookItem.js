@@ -27,7 +27,8 @@ const BookItem = ({ book }) => {
                       (author)
                     ))
                   }
-              </div></blockquote>
+                </div>
+              </blockquote>
           </div>
           <div className="col s6 m8 l10 xl10">
             <h5>{book.title}</h5>

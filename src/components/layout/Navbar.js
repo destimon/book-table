@@ -1,14 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { loadUser } from '../../store/actions/userAction';
 
-const Navbar = ({ user: { user }, loadUser }) => {
-  useEffect(() => {
-    // loadUser();
-    // eslint-disable-next-line
-  }, [])
-
+const Navbar = () => {
   return (
     <nav className="blue-grey darken-4" style={{marginBottom: '5%', paddingLeft: '3%', paddingRight: '3%'}}>
       <div className="nav-wrapper">
@@ -30,4 +24,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { loadUser })(Navbar)
+export default connect(mapStateToProps)(Navbar)

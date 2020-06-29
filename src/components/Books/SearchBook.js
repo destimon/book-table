@@ -1,6 +1,7 @@
 import React from 'react'
 import { getBooks, clearBooks } from '../../store/actions/bookAction';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
 const SearchBook = (props) => {
   const {
@@ -37,6 +38,11 @@ const SearchBook = (props) => {
       </form>
     </div>
   )
+}
+
+SearchBook.propTypes = {
+  clearBooks: PropTypes.func.isRequired,
+  getBooks: PropTypes.func.isRequired,
 }
 
 export default connect(null, { getBooks, clearBooks })(SearchBook);

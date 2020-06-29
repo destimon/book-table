@@ -63,6 +63,7 @@ const Book = (props) => {
 Book.propTypes = {
   match: PropTypes.object.isRequired,
   getBook: PropTypes.func.isRequired,
+  clearBook: PropTypes.func.isRequired,
   book: PropTypes.object.isRequired,
 }
 

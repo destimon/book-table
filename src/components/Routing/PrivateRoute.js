@@ -1,9 +1,18 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
-const PrivateRoute = ({ user, component: Component, ...rest }) => {
-  const { isAuthenticated, userProfileLoading } = user;
+const PrivateRoute = (props) => {
+  const {
+    user: {
+      isAuthenticated,
+      userProfileLoading
+    },
+    component: Component,
+    ...rest
+  } = props;
+
   return (
     <Route
       {...rest}
@@ -17,6 +26,10 @@ const PrivateRoute = ({ user, component: Component, ...rest }) => {
     />
   );
 };
+
+PrivateRoute.propTypes = {
+  user: PropTypes.object.isRequired,
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {

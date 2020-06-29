@@ -1,20 +1,30 @@
 import React, { useEffect} from 'react';
-import Navbar from './components/layout/Navbar';
-import './assets/main.scss';
-import Home from './pages/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Book from './components/Books/Book';
+import PropTypes from 'prop-types'
+
+// Styles
+import './assets/main.scss';
+
+// Pages
+import Home from './pages/Home';
 import About from './pages/About';
-import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Authorization from './pages/Authorization';
+import NotFound from './pages/NotFound';
+
+// Components
+import Navbar from './components/layout/Navbar';
+import Book from './components/Books/Book';
 import PrivateRoute from './components/Routing/PrivateRoute';
+
+// Redux
 import { loadUser } from './store/actions/userAction';
 import { connect } from 'react-redux';
 
 const App = ({loadUser}) => {
   useEffect(() => {
     loadUser();
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -34,10 +44,14 @@ const App = ({loadUser}) => {
   );
 }
 
+App.propTypes = {
+  loadUser: PropTypes.func.isRequired,
+}
+
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user
   }
 }
 
-export default connect(mapStateToProps, {loadUser})(App);
+export default connect(mapStateToProps, { loadUser })(App);

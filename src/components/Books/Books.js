@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { getBooks } from '../../store/actions/bookAction';
 import BookItem from './BookItem';
 import Preloader from '../layout/Preloader';
-
-import '../../assets/main.scss';
+import PropTypes from 'prop-types'
 
 const Books = (props) => {
   const {
@@ -37,6 +36,10 @@ const Books = (props) => {
       }
     </Fragment>
   )
+}
+
+Books.propTypes = {
+  book: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
