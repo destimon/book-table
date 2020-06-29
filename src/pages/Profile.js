@@ -40,7 +40,7 @@ const Profile = (props) => {
               className="btn blue-grey darken-4"
               onClick={clickLogout}
             >
-              Logout
+              <i className="material-icons">exit_to_app</i> Logout
             </button>
           </div>
         </div>

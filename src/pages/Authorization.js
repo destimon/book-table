@@ -24,7 +24,7 @@ const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser
             className="right btn blue-grey darken-4"
             onClick={changeForm}
           >
-            Already have account?
+            <i className="material-icons">how_to_reg</i> Already have account?
           </button>
           <h3>Sign up</h3>
           <div className="divider"></div>
@@ -41,7 +41,7 @@ const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser
             className="right btn blue-grey darken-4"
             onClick={changeForm}
           >
-            Don't have account?
+            <i className="material-icons">account_circle</i> Don't have account?
           </button>
         <h3>Sign in</h3>
         <div className="divider"></div>
