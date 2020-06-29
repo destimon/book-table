@@ -2,14 +2,15 @@ import {
   REGISTER_USER,
   LOAD_USER,
   SET_USER_PROFILE_LOADING,
-  LOGOUT_USER
+  LOGOUT_USER,
+  SUCCESS_LOAD_USER,
 } from '../actions/types';
 
 const userInitialState = {
   user: null,
   token: null,
   userProfileLoading: true,
-  isAuthenticated: null,
+  isAuthenticated: false,
 }
 
 export const userReducer = (state = userInitialState, action) => {
@@ -25,6 +26,10 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         user: action.payload,
         userProfileLoading: false,
+      }
+    case SUCCESS_LOAD_USER:
+      return {
+        ...state,
         isAuthenticated: true,
       }
     case SET_USER_PROFILE_LOADING:

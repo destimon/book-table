@@ -16,6 +16,7 @@ const Profile = (props) => {
   } = props;
 
   useEffect(() => {
+    if (!isAuthenticated) history.push('/auth');
     // eslint-disable-next-line
   }, [])
 

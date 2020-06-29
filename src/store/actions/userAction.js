@@ -3,7 +3,8 @@ import {
   LOAD_USER,
   LOGOUT_USER,
   SET_USER_PROFILE_LOADING,
-  SIGN_IN_USER
+  SIGN_IN_USER,
+  SUCCESS_LOAD_USER
 } from '../actions/types';
 import axios from 'axios';
 // import _ from 'lodash';
@@ -68,6 +69,9 @@ export const loadUser = () => async (dispatch) => {
     dispatch({
       type: LOAD_USER,
       payload: res.data
+    })
+    dispatch({
+      type: SUCCESS_LOAD_USER,
     })
   } catch (err) {
     dispatch({

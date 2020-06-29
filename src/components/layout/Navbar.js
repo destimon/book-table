@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { loadUser } from '../../store/actions/userAction';
 
-const Navbar = ({ user: { isAuthenticated }, loadUser }) => {
+const Navbar = ({ user: { user }, loadUser }) => {
   useEffect(() => {
-    loadUser();
+    // loadUser();
     // eslint-disable-next-line
   }, [])
 
@@ -14,11 +14,9 @@ const Navbar = ({ user: { isAuthenticated }, loadUser }) => {
       <div className="nav-wrapper">
         <Link to="/" className="brand-logo left">BookTable</Link>
         <ul id="nav-mobile" className="right">
-          <li>
-            <Link to="/profile">
-              { 'Profile' }
-            </Link>
-          </li>
+          <li><Link to="/profile">
+            { 'Profile' }
+          </Link></li>
           <li><Link to="/about">About</Link></li>
         </ul>
       </div>

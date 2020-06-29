@@ -11,7 +11,7 @@ const Authorization = ({ user: { isAuthenticated, userProfileLoading }, loadUser
     if (isAuthenticated) history.push('/');
     console.log(isAuthenticated)
     // eslint-disable-next-line
-  }, [])
+  }, [isAuthenticated])
 
   const changeForm = () => {
     setSignForm(!signForm)
