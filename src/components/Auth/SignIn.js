@@ -24,7 +24,7 @@ const SignIn = (props) => {
 
     if (!values.password) {
       errors.password = '* Password required';
-    } else if (values.username.length < 6) {
+    } else if (values.password.length < 6) {
       errors.password = '* Password too short, 6 symbols minimum';
     }
     return errors;
