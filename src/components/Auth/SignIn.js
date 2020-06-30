@@ -4,18 +4,28 @@ import { signInUser } from '../../store/actions/userAction'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik';
 
-const SignIn = ({ user: { isAuthenticated, authError }, signInUser, history }) => {
+const SignIn = (props) => {
+  const {
+    user: {
+      isAuthenticated,
+      authError
+    },
+    signInUser,
+    history
+  } = props;
+
   const validateForm = (values) => {
     const errors = {};
     if (!values.username) {
       errors.username = '* Username required';
-    } else if (values.username.length > 10) {
-      errors.username = '* Username too long';
+    } else if (values.username.length > 15) {
+      errors.username = '* Username too long, 15 symbols maximum';
     }
+
     if (!values.password) {
       errors.password = '* Password required';
-    } else if (values.username.length > 10) {
-      errors.password = '* Password too long';
+    } else if (values.username.length < 6) {
+      errors.password = '* Password too short, 6 symbols minimum';
     }
     return errors;
   }
@@ -91,6 +101,7 @@ const SignIn = ({ user: { isAuthenticated, authError }, signInUser, history }) =
 
 SignIn.propTypes = {
   signInUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
