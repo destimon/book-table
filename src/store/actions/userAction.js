@@ -4,7 +4,8 @@ import {
   LOGOUT_USER,
   SET_USER_PROFILE_LOADING,
   SIGN_IN_USER,
-  SUCCESS_LOAD_USER
+  SUCCESS_LOAD_USER,
+  FAIL_AUTH
 } from '../actions/types';
 import axios from 'axios';
 // import _ from 'lodash';
@@ -26,6 +27,10 @@ export const registerUser = (user) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (err) {
+    dispatch({
+      type: FAIL_AUTH,
+      payload: err
+    })
   }
 }
 
@@ -47,6 +52,10 @@ export const signInUser = (user) => async (dispatch) => {
     })
     dispatch(loadUser());
   } catch (err) {
+    dispatch({
+      type: FAIL_AUTH,
+      payload: err
+    })
   }
 } 
 

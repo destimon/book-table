@@ -4,7 +4,7 @@ import { signInUser } from '../../store/actions/userAction'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik';
 
-const SignIn = ({ signInUser, history }) => {
+const SignIn = ({ user: { isAuthenticated }, signInUser, history }) => {
   const validateForm = (values) => {
     const errors = {};
     if (!values.username) {
@@ -21,7 +21,7 @@ const SignIn = ({ signInUser, history }) => {
       password: values.password
     });
     setSubmitting(false);
-    history.push('/');
+    (isAuthenticated) ? history.push('/') : history.push('/auth');
   }
 
   return (
@@ -71,6 +71,7 @@ const SignIn = ({ signInUser, history }) => {
                   className="right btn blue-grey darken-4"
                   disabled={isSubmitting}
                 />
+                { }
             </form>
           </div>
         </div>
@@ -83,4 +84,10 @@ SignIn.propTypes = {
   signInUser: PropTypes.func.isRequired,
 }
 
-export default connect(null, { signInUser })(SignIn);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, { signInUser })(SignIn);

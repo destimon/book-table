@@ -10,3 +10,4 @@ export const SET_USER_PROFILE_LOADING = 'SET_USER_PROFILE_LOADING';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const SIGN_IN_USER = 'SIGN_IN_USER';
 export const SUCCESS_LOAD_USER = 'SUCCESS_LOAD_USER';
+export const FAIL_AUTH = 'FAIL_AUTH';

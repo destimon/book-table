@@ -4,6 +4,8 @@ import {
   SET_USER_PROFILE_LOADING,
   LOGOUT_USER,
   SUCCESS_LOAD_USER,
+  SIGN_IN_USER,
+  FAIL_AUTH,
 } from '../actions/types';
 
 const userInitialState = {
@@ -11,10 +13,22 @@ const userInitialState = {
   token: null,
   userProfileLoading: true,
   isAuthenticated: false,
+  authError: '',
 }
 
 export const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
+    case SIGN_IN_USER:
+      return {
+        ...state,
+        token: action.payload,
+      }
+    case FAIL_AUTH:
+      return {
+        ...state,
+        isAuthenticated: false,
+        authError: action.payload,
+      }
     case REGISTER_USER:
       return {
         ...state,
