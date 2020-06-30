@@ -34,7 +34,7 @@ const Authorization = (props) => {
         onClick={changeForm}
       >
         <i className="material-icons">account_circle</i> 
-        {(signUpForm) ? ' Dont have account' : ' Already have account'}
+        {(signUpForm) ? ' Already have account' : ' Dont have account'}
       </button>
       <h3>{(signUpForm) ? 'Sign up' : 'Sign in'}</h3>
       <div className="divider"></div>
