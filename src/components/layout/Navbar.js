@@ -18,12 +18,11 @@ const Navbar = (props) => {
           <li>
             {
               !userProfileLoading && (
-                <Link to="/profile">
-                { (isAuthenticated) ? ( 'Profile' ) : 'Sign up' }
+                <Link to={(isAuthenticated) ? ('/profile') : ('/auth')}>
+                { (isAuthenticated) ? ('Profile') : ('Sign up') }
                 </Link>
               )
             }
-
           </li>
           <li><Link to="/about">About</Link></li>
         </ul>
