@@ -27,8 +27,8 @@ const SignIn = (props) => {
     return errors;
   }
 
-  const submitForm = (values, {setSubmitting}) => {
-    signInUser({
+  const submitForm = async (values, {setSubmitting}) => {
+    await signInUser({
       username: values.username,
       password: values.password
     });

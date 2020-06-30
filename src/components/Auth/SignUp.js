@@ -30,8 +30,8 @@ const SignUp = (props) => {
   }
 
 
-  const submitForm = (values, { setSubmitting }) => {
-    registerUser({
+  const submitForm = async (values, { setSubmitting }) => {
+    await registerUser({
       username: values.username,
       password: values.password,
       bio: values.bio,
