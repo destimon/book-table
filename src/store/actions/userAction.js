@@ -5,7 +5,8 @@ import {
   SET_USER_PROFILE_LOADING,
   SIGN_IN_USER,
   SUCCESS_LOAD_USER,
-  FAIL_AUTH
+  FAIL_AUTH,
+  CLEAR_AUTH_ERROR
 } from '../actions/types';
 import axios from 'axios';
 // import _ from 'lodash';
@@ -62,6 +63,12 @@ export const signInUser = (user) => async (dispatch) => {
 export const setUserProfileLoading = () => {
   return {
     type: SET_USER_PROFILE_LOADING
+  }
+}
+
+export const clearAuthError = () => {
+  return {
+    type: CLEAR_AUTH_ERROR,
   }
 }
 

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import { signInUser } from '../../store/actions/userAction'
+import { signInUser, clearAuthError } from '../../store/actions/userAction'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik';
 
@@ -8,7 +8,6 @@ const SignIn = (props) => {
   const {
     user: {
       isAuthenticated,
-      authError
     },
     signInUser,
     history
@@ -24,8 +23,6 @@ const SignIn = (props) => {
 
     if (!values.password) {
       errors.password = '* Password required';
-    } else if (values.password.length < 6) {
-      errors.password = '* Password too short, 6 symbols minimum';
     }
     return errors;
   }
@@ -86,11 +83,6 @@ const SignIn = (props) => {
                   className="right btn blue-grey darken-4"
                   disabled={isSubmitting}
                 />
-                { authError.length > 0 && (
-                  <Fragment>
-                    <i className="material-icons">error</i> {authError}
-                  </Fragment>
-                )}
             </form>
           </div>
         </div>
@@ -101,6 +93,7 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   signInUser: PropTypes.func.isRequired,
+  clearAuthError: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 }
 
@@ -110,4 +103,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { signInUser })(SignIn);
+export default connect(mapStateToProps, { signInUser, clearAuthError })(SignIn);

@@ -1,8 +1,9 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import SignUp from '../components/Auth/SignUp';
 import SignIn from '../components/Auth/SignIn';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
+import {clearAuthError} from '../store/actions/userAction';
+import PropTypes from 'prop-types';
 
 const Authorization = (props) => {
   const [ signUpForm, setSignUpForm ] = useState(true);
@@ -12,6 +13,7 @@ const Authorization = (props) => {
       isAuthenticated,
       authError,
     },
+    clearAuthError,
     history
   } = props;
 
@@ -22,6 +24,7 @@ const Authorization = (props) => {
 
   const changeForm = () => {
     setSignUpForm(!signUpForm)
+    clearAuthError();
   }
 
   return (
@@ -36,6 +39,11 @@ const Authorization = (props) => {
       <h3>{(signUpForm) ? 'Sign up' : 'Sign in'}</h3>
       <div className="divider"></div>
       { (signUpForm) ? (<SignUp history={history} />) : (<SignIn history={history} />) }
+      { authError.length > 0 && (
+        <div className="left-align">
+          <i className="material-icons">error</i> {authError}
+        </div>
+      )}
     </div> 
   )
 
@@ -51,4 +59,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Authorization);
+export default connect(mapStateToProps, { clearAuthError })(Authorization);

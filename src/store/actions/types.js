@@ -11,3 +11,4 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const SIGN_IN_USER = 'SIGN_IN_USER';
 export const SUCCESS_LOAD_USER = 'SUCCESS_LOAD_USER';
 export const FAIL_AUTH = 'FAIL_AUTH';
+export const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';

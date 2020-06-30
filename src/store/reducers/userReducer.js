@@ -6,6 +6,7 @@ import {
   SUCCESS_LOAD_USER,
   SIGN_IN_USER,
   FAIL_AUTH,
+  CLEAR_AUTH_ERROR
 } from '../actions/types';
 
 const userInitialState = {
@@ -18,6 +19,11 @@ const userInitialState = {
 
 export const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
+    case CLEAR_AUTH_ERROR:
+      return {
+        ...state,
+        authError: '',
+      }
     case SIGN_IN_USER:
       return {
         ...state,
