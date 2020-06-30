@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {connect} from 'react-redux';
 import { signInUser } from '../../store/actions/userAction'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik';
 
-const SignIn = ({ user: { isAuthenticated }, signInUser, history }) => {
+const SignIn = ({ user: { isAuthenticated, authError }, signInUser, history }) => {
   const validateForm = (values) => {
     const errors = {};
     if (!values.username) {
-      errors.username = 'Username required';
+      errors.username = '* Username required';
     } else if (values.username.length > 10) {
-      errors.username = 'Username too long';
+      errors.username = '* Username too long';
+    }
+    if (!values.password) {
+      errors.password = '* Password required';
+    } else if (values.username.length > 10) {
+      errors.password = '* Password too long';
     }
     return errors;
   }
@@ -71,7 +76,11 @@ const SignIn = ({ user: { isAuthenticated }, signInUser, history }) => {
                   className="right btn blue-grey darken-4"
                   disabled={isSubmitting}
                 />
-                { }
+                { authError.length > 0 && (
+                  <Fragment>
+                    <i className="material-icons">error</i> {authError}
+                  </Fragment>
+                )}
             </form>
           </div>
         </div>

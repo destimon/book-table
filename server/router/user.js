@@ -27,10 +27,8 @@ module.exports = (app) => {
       check('username', 'Please add name')
       .not()
       .isEmpty(),
-      check(
-        'password',
-        'Please enter a password',
-      ).not()
+      check('password', 'Please enter a password',)
+      .not()
       .isEmpty(),
     ],
     async (req, res) => {

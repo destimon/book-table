@@ -35,7 +35,7 @@ const Authorization = (props) => {
       </button>
       <h3>{(signUpForm) ? 'Sign up' : 'Sign in'}</h3>
       <div className="divider"></div>
-      { (signUpForm) ? (<SignIn history={history} />) : (<SignUp history={history} />) }
+      { (signUpForm) ? (<SignUp history={history} />) : (<SignIn history={history} />) }
     </div> 
   )
 

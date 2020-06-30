@@ -54,7 +54,7 @@ export const signInUser = (user) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: FAIL_AUTH,
-      payload: err
+      payload: err.response.data.msg
     })
   }
 } 
