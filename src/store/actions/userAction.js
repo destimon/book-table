@@ -28,7 +28,6 @@ export const registerUser = (user) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (err) {
-    console.log(err.response)
     if (err.response) {
       dispatch({
         type: FAIL_AUTH,

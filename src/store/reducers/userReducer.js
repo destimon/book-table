@@ -28,6 +28,7 @@ export const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         token: action.payload,
+        authError: '',
       }
     case FAIL_AUTH:
       return {
@@ -40,6 +41,7 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         token: action.payload,
         isAuthenticated: true,
+        authError: '',
       }
     case LOAD_USER:
       return {
@@ -64,6 +66,7 @@ export const userReducer = (state = userInitialState, action) => {
         user: null,
         token: null,
         isAuthenticated: false,
+        authError: '',
       }
     default:
       return state

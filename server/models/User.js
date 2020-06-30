@@ -15,7 +15,21 @@ const UserSchema = mongoose.Schema({
   bio: {
     type: String,
     required: false,
-  }
+  },
+  finishedBooks: [
+    {
+      bookId: {
+        type: String,
+        required: true,
+      },
+      review: {
+        type: String,
+      },
+      grade: {
+        type: Number,
+      }
+    }
+  ]
 });
 
 UserSchema.statics.hashPassword = (passwordRaw, cb) => {
