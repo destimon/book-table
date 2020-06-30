@@ -18,7 +18,7 @@ const Authorization = (props) => {
   } = props;
 
   useEffect(() => {
-    if (isAuthenticated) history.push('/profile');
+    if (isAuthenticated) history.push('/');
     // eslint-disable-next-line
   }, [isAuthenticated])
 
