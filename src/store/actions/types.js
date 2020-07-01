@@ -3,6 +3,7 @@ export const GET_BOOK = 'GET_BOOK';
 export const SET_CURRENT_BOOK_LOADING = 'SET_CURRENT_BOOK_LOADING';
 export const SET_BOOKS_LOADING = 'SET_BOOKS_LOADING'; 
 export const CLEAR_BOOK = 'CLEAR_BOOK';
+export const ADD_FINISHED_BOOK = 'ADD_FINISHED_BOOK';
 
 export const REGISTER_USER = 'REGISTER_USER';
 export const LOAD_USER = 'LOAD_USER';

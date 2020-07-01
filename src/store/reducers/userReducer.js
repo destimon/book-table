@@ -6,11 +6,11 @@ import {
   SUCCESS_LOAD_USER,
   SIGN_IN_USER,
   FAIL_AUTH,
-  CLEAR_AUTH_ERROR
+  CLEAR_AUTH_ERROR,
 } from '../actions/types';
 
 const userInitialState = {
-  user: null,
+  user: {},
   token: null,
   userProfileLoading: true,
   isAuthenticated: false,

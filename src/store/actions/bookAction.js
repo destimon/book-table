@@ -27,6 +27,40 @@ export const getBooks = (bookName) => async (dispatch) => {
   }
 }
 
+// Get personal information about book from backend
+export const getBookPersonalInfo = (username, bookId) => async (dispatch) => {
+  const config = {
+    headers: {
+      'x-auth-token': localStorage.getItem("token"),
+    }
+  }
+
+  try {
+    const res = await axios.get(`http://localhost:3001/api/users/${username}/fin_books/${bookId}`)
+
+    console.log(res.data);
+  } catch (err) {
+
+  }
+}
+
+// Push finished book to the database
+export const addFinishedBook = (book) => async (dispatch) => {
+  const config = {
+    headers: {
+      'x-auth-token': localStorage.getItem("token"),
+    }
+  }
+
+  try {
+
+
+
+  } catch(err) {
+
+  }
+}
+
 // Get chosen book
 export const getBook = (bookId) => async (dispatch) => {
   const url = `https://www.googleapis.com/books/v1/volumes/${bookId}`

@@ -6,7 +6,8 @@ import {
   SIGN_IN_USER,
   SUCCESS_LOAD_USER,
   FAIL_AUTH,
-  CLEAR_AUTH_ERROR
+  CLEAR_AUTH_ERROR,
+  ADD_FINISHED_BOOK
 } from '../actions/types';
 import axios from 'axios';
 
@@ -62,20 +63,6 @@ export const signInUser = (user) => async (dispatch) => {
   }
 } 
 
-// User profile loading process
-export const setUserProfileLoading = () => {
-  return {
-    type: SET_USER_PROFILE_LOADING
-  }
-}
-
-// Authorization clear error message
-export const clearAuthError = () => {
-  return {
-    type: CLEAR_AUTH_ERROR,
-  }
-}
-
 // Load information about logged user
 export const loadUser = () => async (dispatch) => {
   dispatch(setUserProfileLoading());
@@ -99,6 +86,20 @@ export const loadUser = () => async (dispatch) => {
       type: LOAD_USER,
       payload: null
     })
+  }
+}
+
+// User profile loading process
+export const setUserProfileLoading = () => {
+  return {
+    type: SET_USER_PROFILE_LOADING
+  }
+}
+
+// Authorization clear error message
+export const clearAuthError = () => {
+  return {
+    type: CLEAR_AUTH_ERROR,
   }
 }
 

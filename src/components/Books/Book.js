@@ -1,23 +1,33 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getBook, clearBook } from '../../store/actions/bookAction';
+import { getBook, clearBook, addFinishedBook, getBookPersonalInfo } from '../../store/actions/bookAction';
 import { connect } from 'react-redux';
 import Preloader from '../layout/Preloader';
 import { Link } from 'react-router-dom';
 
 const Book = (props) => {
   const {
+    user: {
+      isAuthenticated,
+      user: {
+        username,
+      }
+    },
     book: {
       currentBook,
       currentBookLoading,
+      isBookFinished
     },
     getBook,
     clearBook,
+    addFinishedBook,
+    getBookPersonalInfo,
     match,
   } = props;
   
   useEffect(() => {
     getBook(match.params.book);
+    getBookPersonalInfo(username, match.params.book)
     return () => {
       clearBook();
     }
@@ -45,9 +55,17 @@ const Book = (props) => {
                 <Link to="/" className="waves-effect blue-grey darken-4 btn-small">
                   <i className="material-icons left">keyboard_backspace</i>Back 
                 </Link>
-                <button to="/" className="waves-effect light-green darken-4 btn-small">
-                  <i className="material-icons left">add</i>Add to finished
-                </button>
+                {isAuthenticated && (
+                  (isBookFinished) ? (
+                    <button onClick={addFinishedBook(currentBook.id)} className="waves-effect red darken-4 btn-small">
+                      <i className="material-icons left">delete</i>{'Remove from finished'}
+                    </button>
+                  ) : (
+                    <button onClick={addFinishedBook(currentBook.id)} className="waves-effect light-green darken-4 btn-small">
+                      <i className="material-icons left">add</i>{'Add to finished'}
+                    </button>
+                  )
+                )}
               </div>
               <p>{currentBook.description}</p>
             </div>
@@ -70,15 +88,17 @@ Book.propTypes = {
   getBook: PropTypes.func.isRequired,
   clearBook: PropTypes.func.isRequired,
   book: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    book: state.book
+    book: state.book,
+    user: state.user,
   }
 }
 
 export default connect(
   mapStateToProps, 
-  { getBook, clearBook }
+  { getBook, clearBook, addFinishedBook, getBookPersonalInfo }
 )(Book);
