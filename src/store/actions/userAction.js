@@ -9,8 +9,8 @@ import {
   CLEAR_AUTH_ERROR
 } from '../actions/types';
 import axios from 'axios';
-// import _ from 'lodash';
 
+// Register new user profile
 export const registerUser = (user) => async (dispatch) => {
   const config = {
     headers: {
@@ -62,18 +62,21 @@ export const signInUser = (user) => async (dispatch) => {
   }
 } 
 
+// User profile loading process
 export const setUserProfileLoading = () => {
   return {
     type: SET_USER_PROFILE_LOADING
   }
 }
 
+// Authorization clear error message
 export const clearAuthError = () => {
   return {
     type: CLEAR_AUTH_ERROR,
   }
 }
 
+// Load information about logged user
 export const loadUser = () => async (dispatch) => {
   dispatch(setUserProfileLoading());
   const config = {

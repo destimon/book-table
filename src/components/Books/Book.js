@@ -41,9 +41,14 @@ const Book = (props) => {
               <h5>{currentBook.title}</h5>
               <div className="divider">
               </div>
-              <Link to="/" className="waves-effect blue-grey darken-4 btn-small">
-                <i className="material-icons left">keyboard_backspace</i>Back 
-              </Link>
+              <div className="btn-group">
+                <Link to="/" className="waves-effect blue-grey darken-4 btn-small">
+                  <i className="material-icons left">keyboard_backspace</i>Back 
+                </Link>
+                <button to="/" className="waves-effect light-green darken-4 btn-small">
+                  <i className="material-icons left">add</i>Add to finished
+                </button>
+              </div>
               <p>{currentBook.description}</p>
             </div>
           </div>
