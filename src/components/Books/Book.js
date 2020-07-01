@@ -27,12 +27,17 @@ const Book = (props) => {
   
   useEffect(() => {
     getBook(match.params.book);
-    getBookPersonalInfo(username, match.params.book)
+    if (username)
+      getBookPersonalInfo(username, match.params.book)
     return () => {
       clearBook();
     }
     // eslint-disable-next-line
-  }, [])
+  }, [username])
+
+  const addFinBook = () => {
+    addFinishedBook(username, match.params.book);
+  }
 
   if (currentBookLoading) {
     return <Preloader />
@@ -57,11 +62,11 @@ const Book = (props) => {
                 </Link>
                 {isAuthenticated && (
                   (isBookFinished) ? (
-                    <button onClick={addFinishedBook(currentBook.id)} className="waves-effect red darken-4 btn-small">
+                    <button onClick={addFinBook} className="waves-effect red darken-4 btn-small">
                       <i className="material-icons left">delete</i>{'Remove from finished'}
                     </button>
                   ) : (
-                    <button onClick={addFinishedBook(currentBook.id)} className="waves-effect light-green darken-4 btn-small">
+                    <button onClick={addFinBook} className="waves-effect light-green darken-4 btn-small">
                       <i className="material-icons left">add</i>{'Add to finished'}
                     </button>
                   )

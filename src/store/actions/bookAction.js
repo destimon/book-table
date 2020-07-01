@@ -5,6 +5,7 @@ import {
   SET_CURRENT_BOOK_LOADING,
   SET_BOOKS_LOADING,
   CLEAR_BOOK,
+  LOAD_BOOK_PERSONAL_INFO,
 } from '../actions/types';
 import axios from 'axios';
 import _ from 'lodash';
@@ -36,16 +37,25 @@ export const getBookPersonalInfo = (username, bookId) => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get(`http://localhost:3001/api/users/${username}/fin_books/${bookId}`)
+    const res = await axios.get(
+      `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
+      config,
+    )
 
-    console.log(res.data);
+    dispatch({
+      type: LOAD_BOOK_PERSONAL_INFO,
+      payload: (res.data) ? true : false, 
+    })
   } catch (err) {
-
+    dispatch({
+      type: LOAD_BOOK_PERSONAL_INFO,
+      payload: false,
+    })
   }
 }
 
 // Push finished book to the database
-export const addFinishedBook = (book) => async (dispatch) => {
+export const addFinishedBook = (username, bookId) => async (dispatch) => {
   const config = {
     headers: {
       'x-auth-token': localStorage.getItem("token"),
@@ -53,9 +63,13 @@ export const addFinishedBook = (book) => async (dispatch) => {
   }
 
   try {
-
-
-
+    const res = await axios.post(
+      `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
+      null,
+      config,
+    )
+    
+    console.log(res);
   } catch(err) {
 
   }

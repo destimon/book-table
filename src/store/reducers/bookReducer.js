@@ -4,7 +4,8 @@ import {
   SET_CURRENT_BOOK_LOADING,
   SET_BOOKS_LOADING,
   CLEAR_BOOK,
-  ADD_FINISHED_BOOK
+  ADD_FINISHED_BOOK,
+  LOAD_BOOK_PERSONAL_INFO
 } from '../actions/types';
 
 const bookInitialState = {
@@ -38,6 +39,11 @@ export const bookReducer = (state = bookInitialState, action) => {
       return {
         ...state,
         booksLoading: true,
+      }
+    case LOAD_BOOK_PERSONAL_INFO:
+      return {
+        ...state,
+        isBookFinished: action.payload,
       }
     case ADD_FINISHED_BOOK:
       return {

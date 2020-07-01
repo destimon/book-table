@@ -4,6 +4,7 @@ const vars = require('../config/vars');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const _ = require('lodash');
 
 module.exports = (app) => {
   // @route     GET api/profile
@@ -17,7 +18,47 @@ module.exports = (app) => {
       res.json(err);
     }
   })
+
+  // @route     GET api/users/:username/books/:bookid
+  // @desc      Get personal information about book
+  // @access    Private
+  app.get('/api/users/:username/fin_books/:book_id', auth, async (req, res) => {
+    try {
+      const data = await User.findById(req.user.id)
+      
+      if (data) {
+        const book = _.find(data.finishedBooks, { bookId: req.params.book_id });
+        
+        if (book) {
+          return res.json(book);
+        }
+      }
+      res.json(null);
+    } catch (err) {
+      res.json(err);
+    }
+  })
   
+  // @route     POST api/users/:username/books/:bookid
+  // @desc      Add book to finished books of user
+  // @access    Private
+  app.post('/api/users/:username/fin_books/:book_id', auth, async (req, res) => {
+    console.log('object')
+    try {
+      let data = await User.findById(req.user.id)
+      
+      if (data) {
+        data.finishedBooks.push({ bookId: req.params.book_id });
+        
+        await data.save();
+        return res.json(data);
+      }
+      res.json(null);
+    } catch (err) {
+      res.json(err);
+    }
+  })
+
   // @route     POST api/auth/signin
   // @desc      Sign in user
   // @access    Public
