@@ -38,17 +38,35 @@ module.exports = (app) => {
       res.json(err);
     }
   })
-  
+
   // @route     POST api/users/:username/books/:bookid
   // @desc      Add book to finished books of user
   // @access    Private
   app.post('/api/users/:username/fin_books/:book_id', auth, async (req, res) => {
-    console.log('object')
     try {
       let data = await User.findById(req.user.id)
       
       if (data) {
         data.finishedBooks.push({ bookId: req.params.book_id });
+        
+        await data.save();
+        return res.json(data);
+      }
+      res.json(null);
+    } catch (err) {
+      res.json(err);
+    }
+  })
+
+  // @route     DELETE api/users/:username/books/:bookid
+  // @desc      Delete book from finished books of user
+  // @access    Private
+  app.delete('/api/users/:username/fin_books/:book_id', auth, async (req, res) => {
+    try {
+      let data = await User.findById(req.user.id)
+      
+      if (data) {
+        _.remove(data.finishedBooks, { bookId: req.params.book_id });
         
         await data.save();
         return res.json(data);

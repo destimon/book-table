@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getBook, clearBook, addFinishedBook, getBookPersonalInfo } from '../../store/actions/bookAction';
+import { 
+  getBook, 
+  clearBook, 
+  addFinishedBook,
+  getBookPersonalInfo,
+  removeFinishedBook
+} from '../../store/actions/bookAction';
 import { connect } from 'react-redux';
 import Preloader from '../layout/Preloader';
 import { Link } from 'react-router-dom';
@@ -21,19 +27,20 @@ const Book = (props) => {
     getBook,
     clearBook,
     addFinishedBook,
+    removeFinishedBook,
     getBookPersonalInfo,
     match,
   } = props;
   
   useEffect(() => {
     getBook(match.params.book);
-    if (username)
+    if (isAuthenticated)
       getBookPersonalInfo(username, match.params.book)
     return () => {
       clearBook();
     }
     // eslint-disable-next-line
-  }, [username])
+  }, [username, isAuthenticated])
 
   const addFinBook = () => {
     addFinishedBook(username, match.params.book);
@@ -62,7 +69,7 @@ const Book = (props) => {
                 </Link>
                 {isAuthenticated && (
                   (isBookFinished) ? (
-                    <button onClick={addFinBook} className="waves-effect red darken-4 btn-small">
+                    <button onClick={removeFinishedBook} className="waves-effect red darken-4 btn-small">
                       <i className="material-icons left">delete</i>{'Remove from finished'}
                     </button>
                   ) : (
@@ -105,5 +112,11 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps, 
-  { getBook, clearBook, addFinishedBook, getBookPersonalInfo }
+  { 
+    getBook, 
+    clearBook, 
+    addFinishedBook, 
+    getBookPersonalInfo, 
+    removeFinishedBook 
+  }
 )(Book);

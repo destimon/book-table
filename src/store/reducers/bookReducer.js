@@ -10,10 +10,11 @@ import {
 
 const bookInitialState = {
   books: [],
-  currentBook: null,
-  isBookFinished: null,
   booksLoading: false,
+
+  currentBook: null,
   currentBookLoading: true,
+  isBookFinished: null,
 }
 
 export const bookReducer = (state = bookInitialState, action) => {

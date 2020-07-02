@@ -6,6 +6,7 @@ import {
   SET_BOOKS_LOADING,
   CLEAR_BOOK,
   LOAD_BOOK_PERSONAL_INFO,
+  ADD_FINISHED_BOOK,
 } from '../actions/types';
 import axios from 'axios';
 import _ from 'lodash';
@@ -25,6 +26,36 @@ export const getBooks = (bookName) => async (dispatch) => {
     })
   } catch(err) {
     console.error(err);
+  }
+}
+
+export const getFinishedBooks = (book_ids) => async (dispatch) => {
+  setBooksLoading();
+
+  try {
+    // Fill array of books with extended info
+    let books = book_ids.map(async (el) => {
+      let url = `https://www.googleapis.com/books/v1/volumes/${el.bookId}`
+      let { 
+        data: { volumeInfo }
+      } = await axios.get(url)
+      
+      return {
+        title: volumeInfo.title,
+        description: volumeInfo.description,
+        thumbnail: _.get(volumeInfo, 'imageLinks.thumbnail'),
+      }
+    })
+
+    Promise.all(books)
+    .then(res => {
+      dispatch({
+        type: GET_BOOKS,
+        payload: res,
+      })
+    })
+  } catch (err) {
+    
   }
 }
 
@@ -63,15 +94,47 @@ export const addFinishedBook = (username, bookId) => async (dispatch) => {
   }
 
   try {
-    const res = await axios.post(
+    await axios.post(
       `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
       null,
       config,
     )
     
-    console.log(res);
+    dispatch({
+      type: ADD_FINISHED_BOOK,
+      payload: true,
+    })
   } catch(err) {
+    dispatch({
+      type: ADD_FINISHED_BOOK,
+      payload: false,
+    })
+  }
+}
 
+// Remove finished book from the database
+export const removeFinishedBook = (username, bookId) => async (dispatch) => {
+  const config = {
+    headers: {
+      'x-auth-token': localStorage.getItem("token"),
+    }
+  }
+
+  try {
+    await axios.delete(
+      `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
+      config
+    )
+
+    dispatch({
+      type: ADD_FINISHED_BOOK,
+      payload: false,
+    })
+  } catch (err) {
+    dispatch({
+      type: ADD_FINISHED_BOOK,
+      payload: true,
+    })
   }
 }
 

@@ -7,6 +7,7 @@ const BookItem = ({ book }) => {
   const history = useHistory();
 
   const showBook = () => {
+    console.log(book);
     history.push(`/books/${book.id}`)
   }
 

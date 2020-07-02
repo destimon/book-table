@@ -7,7 +7,6 @@ import {
   SUCCESS_LOAD_USER,
   FAIL_AUTH,
   CLEAR_AUTH_ERROR,
-  ADD_FINISHED_BOOK
 } from '../actions/types';
 import axios from 'axios';
 
