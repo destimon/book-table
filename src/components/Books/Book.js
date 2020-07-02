@@ -5,11 +5,12 @@ import {
   clearBook, 
   addFinishedBook,
   getBookPersonalInfo,
-  removeFinishedBook
+  removeFinishedBook,
+  setFinBookLoading,
 } from '../../store/actions/bookAction';
 import { connect } from 'react-redux';
 import Preloader from '../layout/Preloader';
-import { Link } from 'react-router-dom';
+import { loadUser } from '../../store/actions/userAction';
 
 const Book = (props) => {
   const {
@@ -22,14 +23,18 @@ const Book = (props) => {
     book: {
       currentBook,
       currentBookLoading,
-      isBookFinished
+      isBookFinished,
+      finBookLoading
     },
     getBook,
     clearBook,
     addFinishedBook,
     removeFinishedBook,
     getBookPersonalInfo,
+    setFinBookLoading,
     match,
+    loadUser,
+    history
   } = props;
   
   useEffect(() => {
@@ -42,8 +47,16 @@ const Book = (props) => {
     // eslint-disable-next-line
   }, [username, isAuthenticated])
 
-  const addFinBook = () => {
-    addFinishedBook(username, match.params.book);
+  const addFinBook = async () => {
+    setFinBookLoading();
+    await addFinishedBook(username, match.params.book);
+    loadUser();
+  }
+
+  const remFinBook = async () => {
+    setFinBookLoading();
+    await removeFinishedBook(username, match.params.book);
+    loadUser();
   }
 
   if (currentBookLoading) {
@@ -64,16 +77,24 @@ const Book = (props) => {
               <div className="divider">
               </div>
               <div className="btn-group">
-                <Link to="/" className="waves-effect blue-grey darken-4 btn-small">
+                <button onClick={history.goBack} className="waves-effect blue-grey darken-4 btn-small">
                   <i className="material-icons left">keyboard_backspace</i>Back 
-                </Link>
+                </button>
                 {isAuthenticated && (
                   (isBookFinished) ? (
-                    <button onClick={removeFinishedBook} className="waves-effect red darken-4 btn-small">
+                    <button 
+                      onClick={remFinBook} 
+                      className="waves-effect red darken-4 btn-small"
+                      disabled={(finBookLoading) ? true : false}
+                    >
                       <i className="material-icons left">delete</i>{'Remove from finished'}
                     </button>
                   ) : (
-                    <button onClick={addFinBook} className="waves-effect light-green darken-4 btn-small">
+                    <button 
+                      onClick={addFinBook} 
+                      className="waves-effect light-green darken-4 btn-small" 
+                      disabled={(finBookLoading) ? true : false}
+                    >
                       <i className="material-icons left">add</i>{'Add to finished'}
                     </button>
                   )
@@ -117,6 +138,8 @@ export default connect(
     clearBook, 
     addFinishedBook, 
     getBookPersonalInfo, 
-    removeFinishedBook 
+    removeFinishedBook,
+    loadUser,
+    setFinBookLoading
   }
 )(Book);

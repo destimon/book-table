@@ -5,7 +5,8 @@ import {
   SET_BOOKS_LOADING,
   CLEAR_BOOK,
   ADD_FINISHED_BOOK,
-  LOAD_BOOK_PERSONAL_INFO
+  LOAD_BOOK_PERSONAL_INFO,
+  SET_FIN_BOOK_LOADING
 } from '../actions/types';
 
 const bookInitialState = {
@@ -14,7 +15,9 @@ const bookInitialState = {
 
   currentBook: null,
   currentBookLoading: true,
+
   isBookFinished: null,
+  finBookLoading: false, 
 }
 
 export const bookReducer = (state = bookInitialState, action) => {
@@ -41,6 +44,11 @@ export const bookReducer = (state = bookInitialState, action) => {
         ...state,
         booksLoading: true,
       }
+    case SET_FIN_BOOK_LOADING:
+      return {
+        ...state,
+        finBookLoading: true,
+      }
     case LOAD_BOOK_PERSONAL_INFO:
       return {
         ...state,
@@ -50,6 +58,7 @@ export const bookReducer = (state = bookInitialState, action) => {
       return {
         ...state,
         isBookFinished: action.payload,
+        finBookLoading: false,
       }
     case CLEAR_BOOK:
       return {

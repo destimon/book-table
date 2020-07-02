@@ -68,6 +68,7 @@ module.exports = (app) => {
       if (data) {
         _.remove(data.finishedBooks, { bookId: req.params.book_id });
         
+        console.log(data);
         await data.save();
         return res.json(data);
       }

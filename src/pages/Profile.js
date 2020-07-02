@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
-import { logoutUser } from '../store/actions/userAction';
-import { getFinishedBooks, clearBooks } from '../store/actions/bookAction';
+import { logoutUser, loadUser } from '../store/actions/userAction';
+import { getFinishedBooks, clearBooks, setBooksLoading } from '../store/actions/bookAction';
 import Preloader from '../components/layout/Preloader';
 import PropTypes from 'prop-types';
 import Books from '../components/Books/Books';
@@ -14,13 +14,16 @@ const Profile = (props) => {
       userProfileLoading
     },
     getFinishedBooks,
+    setBooksLoading,
     logoutUser,
     clearBooks,
+    loadUser,
     history
   } = props;
 
   useEffect(() => {
     if (!isAuthenticated && !userProfileLoading) history.push('/auth');
+    setBooksLoading();
     getFinishedBooks(user.finishedBooks);
     return () => {
       clearBooks();
@@ -76,5 +79,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps, {
   logoutUser,
   getFinishedBooks,
-  clearBooks
+  clearBooks,
+  loadUser,
+  setBooksLoading
 })(Profile);

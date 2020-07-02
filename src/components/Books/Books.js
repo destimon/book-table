@@ -10,7 +10,7 @@ const Books = (props) => {
     book: {
       books,
       booksLoading,
-    }
+    },
   } = props;
 
   if (booksLoading) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { getBooks, clearBooks } from '../../store/actions/bookAction';
+import { getBooks, clearBooks, setBooksLoading } from '../../store/actions/bookAction';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 
@@ -7,12 +7,14 @@ const SearchBook = (props) => {
   const {
     clearBooks,
     getBooks,
+    setBooksLoading,
   } = props;
   
   const onSubmit = (e) => {
     const bookName = e.target.bookName.value;
 
     e.preventDefault();
+    setBooksLoading();
     if (bookName) {
       getBooks(bookName);
     }
@@ -45,4 +47,6 @@ SearchBook.propTypes = {
   getBooks: PropTypes.func.isRequired,
 }
 
-export default connect(null, { getBooks, clearBooks })(SearchBook);
+export default connect(null, { 
+  getBooks, clearBooks, setBooksLoading
+})(SearchBook);

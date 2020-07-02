@@ -7,6 +7,7 @@ import {
   CLEAR_BOOK,
   LOAD_BOOK_PERSONAL_INFO,
   ADD_FINISHED_BOOK,
+  SET_FIN_BOOK_LOADING
 } from '../actions/types';
 import axios from 'axios';
 import _ from 'lodash';
@@ -36,14 +37,13 @@ export const getFinishedBooks = (book_ids) => async (dispatch) => {
     // Fill array of books with extended info
     let books = book_ids.map(async (el) => {
       let url = `https://www.googleapis.com/books/v1/volumes/${el.bookId}`
-      let { 
-        data: { volumeInfo }
-      } = await axios.get(url)
+      let { data } = await axios.get(url)
       
       return {
-        title: volumeInfo.title,
-        description: volumeInfo.description,
-        thumbnail: _.get(volumeInfo, 'imageLinks.thumbnail'),
+        id: data.id,
+        title: data.volumeInfo.title,
+        description: data.volumeInfo.description,
+        thumbnail: _.get(data.volumeInfo, 'imageLinks.thumbnail'),
       }
     })
 
@@ -114,7 +114,7 @@ export const addFinishedBook = (username, bookId) => async (dispatch) => {
 
 // Remove finished book from the database
 export const removeFinishedBook = (username, bookId) => async (dispatch) => {
-  const config = {
+  const config = {  
     headers: {
       'x-auth-token': localStorage.getItem("token"),
     }
@@ -161,7 +161,12 @@ export const getBook = (bookId) => async (dispatch) => {
       type: GET_BOOK,
       payload: null,
     })
-    console.error(err);
+  }
+}
+
+export const setFinBookLoading = () => {
+  return {
+    type: SET_FIN_BOOK_LOADING,
   }
 }
 
