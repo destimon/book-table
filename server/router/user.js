@@ -61,15 +61,18 @@ module.exports = (app) => {
   // @route     DELETE api/users/:username/books/:bookid
   // @desc      Delete book from finished books of user
   // @access    Private
-  app.delete('/api/users/:username/fin_books/:book_id', auth, async (req, res) => {
+  app.put('/api/users/:username/fin_books/:book_id', auth, async (req, res) => {
     try {
       let data = await User.findById(req.user.id)
       
       if (data) {
-        _.remove(data.finishedBooks, { bookId: req.params.book_id });
+        let newBooks = data.finishedBooks;
+        _.remove(newBooks, { bookId: req.params.book_id });
         
-        console.log(data);
-        await data.save();
+        data.finishedBooks = newBooks;
+        // console.log(data);
+        let res = await User.findOneAndUpdate(data);
+        console.log(res);
         return res.json(data);
       }
       res.json(null);

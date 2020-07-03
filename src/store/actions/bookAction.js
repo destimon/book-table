@@ -121,8 +121,9 @@ export const removeFinishedBook = (username, bookId) => async (dispatch) => {
   }
 
   try {
-    await axios.delete(
+    await axios.put(
       `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
+      null,
       config
     )
 
