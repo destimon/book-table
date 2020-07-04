@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import SignUp from '../components/Auth/SignUp';
 import SignIn from '../components/Auth/SignIn';
 import { connect } from 'react-redux';
@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 const Authorization = (props) => {
   const [ signUpForm, setSignUpForm ] = useState(true);
-
   const {
     user: {
       isAuthenticated,
@@ -22,10 +21,11 @@ const Authorization = (props) => {
     // eslint-disable-next-line
   }, [isAuthenticated])
 
-  const changeForm = () => {
+  const changeForm = useCallback(() => {
     setSignUpForm(!signUpForm)
     clearAuthError();
-  }
+    // eslint-disable-next-line
+  }, [signUpForm])
 
   return (
     <div className="container">
@@ -51,6 +51,7 @@ const Authorization = (props) => {
 
 Authorization.propTypes = {
   user: PropTypes.object.isRequired,
+  clearAuthError: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -59,4 +60,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { clearAuthError })(Authorization);
+export default connect(mapStateToProps, { 
+  clearAuthError 
+})(Authorization);

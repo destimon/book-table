@@ -12,7 +12,6 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
-  "proxy": "http://localhost:3000/",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",

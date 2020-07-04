@@ -19,7 +19,7 @@ export const registerUser = (user) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post('http://localhost:3001/api/auth/signup', user, config);
+    const res = await axios.post('http://localhost:5000/api/auth/signup', user, config);
 
     localStorage.setItem("token", res.data.token);
     dispatch({
@@ -46,7 +46,7 @@ export const signInUser = (user) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post('http://localhost:3001/api/auth/signin', user, config);
+    const res = await axios.post('http://localhost:5000/api/auth/signin', user, config);
 
     localStorage.setItem("token", res.data.token);
     dispatch({
@@ -71,7 +71,7 @@ export const loadUser = () => async (dispatch) => {
     }
   }
   try {
-    const res = await axios.get(`http://localhost:3001/api/profile`, config)
+    const res = await axios.get('http://localhost:5000/api/profile', config)
 
     dispatch({
       type: LOAD_USER,
