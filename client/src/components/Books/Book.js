@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
+import Preloader from '../layout/Preloader';
+import { loadUser } from '../../store/actions/userAction';
 import { 
   getBook, 
   clearBook, 
@@ -8,17 +11,12 @@ import {
   removeFinishedBook,
   setFinBookLoading,
 } from '../../store/actions/bookAction';
-import { connect } from 'react-redux';
-import Preloader from '../layout/Preloader';
-import { loadUser } from '../../store/actions/userAction';
 
 const Book = (props) => {
   const {
     user: {
       isAuthenticated,
-      user: {
-        username,
-      }
+      user: { username }
     },
     book: {
       currentBook,
@@ -26,38 +24,41 @@ const Book = (props) => {
       isBookFinished,
       finBookLoading
     },
+    // Redux methods
     getBook,
     clearBook,
     addFinishedBook,
     removeFinishedBook,
     getBookPersonalInfo,
     setFinBookLoading,
-    match,
     loadUser,
-    history
+    // Misc
+    history,
+    match
   } = props;
   
   useEffect(() => {
     getBook(match.params.book);
-    if (isAuthenticated)
-      getBookPersonalInfo(username, match.params.book)
-    return () => {
-      clearBook();
-    }
+    if (isAuthenticated) getBookPersonalInfo(username, match.params.book)
+    return () => clearBook();
     // eslint-disable-next-line
   }, [username, isAuthenticated])
 
-  const addFinBook = async () => {
+  // Add current book to finished books of user
+  const addFinBook = useCallback(async () => {
     setFinBookLoading();
     await addFinishedBook(username, match.params.book);
     loadUser();
-  }
+    // eslint-disable-next-line
+  }, [username, match])
 
-  const remFinBook = async () => {
+  // Delete current book from finished books of user
+  const remFinBook = useCallback(async () => {
     setFinBookLoading();
     await removeFinishedBook(username, match.params.book);
     loadUser();
-  }
+    // eslint-disable-next-line
+  }, [username, match])
 
   if (currentBookLoading) {
     return <Preloader />
@@ -117,19 +118,26 @@ const Book = (props) => {
 }
 
 Book.propTypes = {
-  match: PropTypes.object.isRequired,
+  // Redux methods
+  loadUser: PropTypes.func.isRequired,
   getBook: PropTypes.func.isRequired,
   clearBook: PropTypes.func.isRequired,
+  getBookPersonalInfo: PropTypes.func.isRequired,
+  setFinBookLoading: PropTypes.func.isRequired,
+  addFinishedBook: PropTypes.func.isRequired,
+  removeFinishedBook: PropTypes.func.isRequired,
+  // Redux state
   book: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  // Misc
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    book: state.book,
-    user: state.user,
-  }
-}
+const mapStateToProps = (state) => ({
+  book: state.book,
+  user: state.user,
+})
 
 export default connect(
   mapStateToProps, 
