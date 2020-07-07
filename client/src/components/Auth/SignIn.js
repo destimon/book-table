@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { signInUser } from '../../store/actions/userAction'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik';
@@ -13,7 +13,8 @@ const SignIn = (props) => {
     history
   } = props;
 
-  const validateForm = (values) => {
+  // Validate sign in form
+  const validateForm = useCallback((values) => {
     const errors = {};
     if (!values.username) {
       errors.username = '* Username required';
@@ -25,22 +26,26 @@ const SignIn = (props) => {
       errors.password = '* Password required';
     }
     return errors;
-  }
+  }, [])
 
-  const submitForm = async (values, {setSubmitting}) => {
+  // Submit sign in form
+  const submitForm = useCallback(async (values, { setSubmitting }) => {
     await signInUser({
       username: values.username,
       password: values.password
     });
     setSubmitting(false);
     (isAuthenticated) ? history.push('/') : history.push('/auth');
-  }
+  }, [isAuthenticated, history, signInUser])
 
   return (
     <Formik
-      initialValues={{ username: '', password: '' }}
-      validate={validateForm}
-      onSubmit={submitForm}
+      initialValues={{ 
+        username: '', 
+        password: '' 
+      }}
+      validate={ validateForm }
+      onSubmit={ submitForm }
     >
       {({
         values,
@@ -94,12 +99,9 @@ const SignIn = (props) => {
 SignIn.propTypes = {
   signInUser: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    user: state.user
-  }
-}
+  
+const mapStateToProps = (state) => ({ user: state.user })
 
 export default connect(mapStateToProps, { signInUser })(SignIn);
