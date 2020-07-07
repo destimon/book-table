@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const Navbar = (props) => {
@@ -31,10 +32,10 @@ const Navbar = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    user: state.user
-  }
+Navbar.propTypes = {
+  user: PropTypes.object.isRequired
 }
+
+const mapStateToProps = (state) => ({ user: state.user })
 
 export default connect(mapStateToProps)(Navbar)
