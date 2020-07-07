@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {connect} from 'react-redux';
-import { signInUser, clearAuthError } from '../../store/actions/userAction'
+import { signInUser } from '../../store/actions/userAction'
 import PropTypes from 'prop-types'
 import { Formik } from 'formik';
 
@@ -93,7 +93,6 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   signInUser: PropTypes.func.isRequired,
-  clearAuthError: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
 }
 
@@ -103,4 +102,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { signInUser, clearAuthError })(SignIn);
+export default connect(mapStateToProps, { signInUser })(SignIn);
