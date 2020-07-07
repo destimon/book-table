@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { connect } from 'react-redux';
 import { logoutUser } from '../store/actions/userAction';
 import { getFinishedBooks, clearBooks, setBooksLoading } from '../store/actions/bookAction';
@@ -30,10 +30,10 @@ const Profile = (props) => {
     // eslint-disable-next-line
   }, [isAuthenticated])
 
-  const clickLogout = () => {
+  const clickLogout = useCallback(() => {
     logoutUser();
     history.push('/auth');
-  }
+  }, [history, logoutUser])
 
   if (userProfileLoading) {
     return <Preloader />
@@ -67,6 +67,9 @@ const Profile = (props) => {
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
+  getFinishedBooks: PropTypes.func.isRequired,
+  setBooksLoading: PropTypes.func.isRequired,
+  clearBooks: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
