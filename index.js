@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5000;
 const mongodb_connect = require('./config/mongodb');
 const routes = require('./router/index');
 const cors = require('cors');
+const path = require('path');
 
 // Init Middleware
 app.use(express.json({ extended: true }));
@@ -18,6 +19,7 @@ mongodb_connect();
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
+  console.log('object')
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) =>
