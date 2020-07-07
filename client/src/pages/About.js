@@ -6,7 +6,7 @@ const About = () => {
       <h3>About BookTable</h3>
       <div className="divider"></div>
       <h5>Author: Dmitry Cherendieiev</h5>
-      <p>Full stack MERN book table with React hooks, context & JWT authentication.</p>
+      <p>Full stack MERN book table with React hooks, redux & JWT authentication.</p>
       <small>Version 1.0.0</small>
     </div>
   )

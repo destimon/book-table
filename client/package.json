@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "formik": "^2.1.4",
-    "google-books-search-2": "git+https://git@github.com/destimon/node-google-books-search-2.git#0.1.5",
+    "google-books-search-2": "git+https://git@github.com/destimon/node-google-books-search-2.git",
     "install": "^0.13.0",
     "node-sass": "^4.14.1",
     "npm": "^6.14.5",
@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },

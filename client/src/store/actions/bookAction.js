@@ -69,7 +69,7 @@ export const getBookPersonalInfo = (username, bookId) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
+      `/api/users/${username}/fin_books/${bookId}`,
       config,
     )
 
@@ -95,7 +95,7 @@ export const addFinishedBook = (username, bookId) => async (dispatch) => {
 
   try {
     await axios.post(
-      `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
+      `/api/users/${username}/fin_books/${bookId}`,
       null,
       config,
     )
@@ -122,7 +122,7 @@ export const removeFinishedBook = (username, bookId) => async (dispatch) => {
 
   try {
     await axios.put(
-      `http://localhost:3001/api/users/${username}/fin_books/${bookId}`,
+      `/api/users/${username}/fin_books/${bookId}`,
       null,
       config
     )

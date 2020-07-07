@@ -51,7 +51,7 @@ const Authorization = (props) => {
 
 Authorization.propTypes = {
   user: PropTypes.object.isRequired,
-  clearAuthError: PropTypes.string.isRequired,
+  clearAuthError: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
