@@ -1,7 +1,11 @@
-import React from 'react'
-import { getBooks, clearBooks, setBooksLoading } from '../../store/actions/bookAction';
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
+import { 
+  getBooks, 
+  clearBooks, 
+  setBooksLoading 
+} from '../../store/actions/bookAction';
 
 const SearchBook = (props) => {
   const {
@@ -10,15 +14,14 @@ const SearchBook = (props) => {
     setBooksLoading,
   } = props;
   
-  const onSubmit = (e) => {
+  const onSubmit = useCallback((e) => {
     const bookName = e.target.bookName.value;
 
     e.preventDefault();
     setBooksLoading();
-    if (bookName) {
-      getBooks(bookName);
-    }
-  }
+    if (bookName) getBooks(bookName);
+    // eslint-disable-next-line
+  }, [getBooks]);
 
   return (
     <div className="row center-align">
@@ -45,8 +48,11 @@ const SearchBook = (props) => {
 SearchBook.propTypes = {
   clearBooks: PropTypes.func.isRequired,
   getBooks: PropTypes.func.isRequired,
+  setBooksLoading: PropTypes.func.isRequired,
 }
 
 export default connect(null, { 
-  getBooks, clearBooks, setBooksLoading
+  getBooks, 
+  clearBooks, 
+  setBooksLoading
 })(SearchBook);
