@@ -9,8 +9,8 @@ const Books = (props) => {
   const {
     book: {
       books,
-      booksLoading,
-    },
+      booksLoading
+    }
   } = props;
 
   if (booksLoading) {
@@ -39,13 +39,9 @@ const Books = (props) => {
 }
 
 Books.propTypes = {
-  book: PropTypes.object.isRequired,
+  book: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    book: state.book
-  }
-}
+const mapStateToProps = (state) => ({ book: state.book })
 
 export default connect(mapStateToProps, { getBooks })(Books);
