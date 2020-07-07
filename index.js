@@ -19,7 +19,6 @@ mongodb_connect();
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  console.log('object')
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) =>
