@@ -1,7 +1,7 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import { registerUser } from '../../store/actions/userAction'
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import { registerUser } from '../../store/actions/userAction';
 import { Formik } from 'formik';
 
 const SignUp = (props) => {
@@ -13,8 +13,10 @@ const SignUp = (props) => {
     registerUser,
   } = props;
 
-  const validateForm = (values) => {
+  // Validate sign up/register form
+  const validateForm = useCallback((values) => {
     const errors = {};
+
     if (!values.username) {
       errors.username = '* Username required';
     } else if (values.username.length > 15) {
@@ -27,10 +29,10 @@ const SignUp = (props) => {
       errors.password = '* Password too short, 6 symbols minimum';
     }
     return errors;
-  }
+  }, [])
 
-
-  const submitForm = async (values, { setSubmitting }) => {
+  // Submit sign up/register form
+  const submitForm = useCallback(async (values, { setSubmitting }) => {
     await registerUser({
       username: values.username,
       password: values.password,
@@ -38,11 +40,15 @@ const SignUp = (props) => {
     });
     setSubmitting(false);
     (isAuthenticated) ? history.push('/') : history.push('/auth');
-  }
+  }, [isAuthenticated, history, registerUser])
 
   return (
     <Formik
-      initialValues={{ username: '', password: '', bio: '' }}
+      initialValues={{ 
+        username: '', 
+        password: '', 
+        bio: '' 
+      }}
       validate={validateForm}
       onSubmit={submitForm}
     >
@@ -106,14 +112,12 @@ const SignUp = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    user: state.user
-  }
-}
+const mapStateToProps = (state) => ({ user: state.user })
 
 SignUp.propTypes = {
+  user: PropTypes.object.isRequired,
   registerUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, { registerUser })(SignUp);
