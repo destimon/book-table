@@ -1,64 +1,23 @@
-import React, { useEffect, useCallback } from 'react'
-import { connect } from 'react-redux';
+import React from 'react'
 import PropTypes from 'prop-types'
 import Preloader from '../layout/Preloader';
-import { loadUser } from '../../store/actions/userAction';
-import { 
-  getBook, 
-  clearBook, 
-  addFinishedBook,
-  getBookPersonalInfo,
-  removeFinishedBook,
-  setFinBookLoading,
-} from '../../store/actions/bookAction';
+import { useHistory } from 'react-router-dom';
 
 const Book = (props) => {
+  const history = useHistory();
+
   const {
-    user: {
-      isAuthenticated,
-      user: { username }
-    },
-    book: {
-      currentBook,
-      currentBookLoading,
-      isBookFinished,
-      finBookLoading
-    },
-    // Redux methods
-    getBook,
-    clearBook,
-    addFinishedBook,
-    removeFinishedBook,
-    getBookPersonalInfo,
-    setFinBookLoading,
-    loadUser,
-    // Misc
-    history,
-    match
+    currentBookLoading,
+    currentBook,
+
+    isAuthenticated,
+
+    remFinBook,
+    addFinBook,
+    finBookLoading,
+
+    isBookFinished
   } = props;
-  
-  useEffect(() => {
-    getBook(match.params.book);
-    if (isAuthenticated) getBookPersonalInfo(username, match.params.book)
-    return () => clearBook();
-    // eslint-disable-next-line
-  }, [username, isAuthenticated])
-
-  // Add current book to finished books of user
-  const addFinBook = useCallback(async () => {
-    setFinBookLoading();
-    await addFinishedBook(username, match.params.book);
-    loadUser();
-    // eslint-disable-next-line
-  }, [username, match])
-
-  // Delete current book from finished books of user
-  const remFinBook = useCallback(async () => {
-    setFinBookLoading();
-    await removeFinishedBook(username, match.params.book);
-    loadUser();
-    // eslint-disable-next-line
-  }, [username, match])
 
   if (currentBookLoading) {
     return <Preloader />
@@ -118,36 +77,17 @@ const Book = (props) => {
 }
 
 Book.propTypes = {
-  // Redux methods
-  loadUser: PropTypes.func.isRequired,
-  getBook: PropTypes.func.isRequired,
-  clearBook: PropTypes.func.isRequired,
-  getBookPersonalInfo: PropTypes.func.isRequired,
-  setFinBookLoading: PropTypes.func.isRequired,
-  addFinishedBook: PropTypes.func.isRequired,
-  removeFinishedBook: PropTypes.func.isRequired,
-  // Redux state
-  book: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  // Misc
+  currentBookLoading: PropTypes.bool.isRequired,
+  currentBook: PropTypes.object.isRequired,
+
+  isAuthenticated: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+
+  remFinBook: PropTypes.func.isRequired,
+  addFinBook: PropTypes.func.isRequired,
+  finBookLoading: PropTypes.bool.isRequired,
+
+  isBookFinished: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = (state) => ({
-  book: state.book,
-  user: state.user,
-})
-
-export default connect(
-  mapStateToProps, 
-  { 
-    getBook, 
-    clearBook, 
-    addFinishedBook, 
-    getBookPersonalInfo, 
-    removeFinishedBook,
-    loadUser,
-    setFinBookLoading
-  }
-)(Book);
+export default Book;

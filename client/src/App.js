@@ -14,7 +14,7 @@ import NotFound from './pages/NotFound';
 
 // Components
 import Navbar from './components/layout/Navbar';
-import Book from './components/Books/Book';
+import BookContainer from './containers/BookContainer';
 import PrivateRoute from './components/Routing/PrivateRoute';
 
 // Redux
@@ -33,7 +33,7 @@ const App = ({loadUser}) => {
       <Navbar />
         <Switch>
           <Route exact path='/' component={Home}></Route>
-          <Route exact path='/books/:book' component={Book}></Route>
+          <Route exact path='/books/:book' component={BookContainer}></Route>
           <Route exact path='/about' component={About}></Route>
           <PrivateRoute exact path='/profile' component={Profile}></PrivateRoute>
           <Route exact path='/auth' component={Authorization}></Route>
