@@ -13,9 +13,7 @@ const Books = (props) => {
     }
   } = props;
 
-  if (booksLoading) {
-    return <Preloader />
-  }
+  if (booksLoading) return <Preloader />
 
   return (
     <Fragment>
