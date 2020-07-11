@@ -9,14 +9,14 @@ import {
   failureLoadUser
 } from '../actions/userAction';
 import axios from 'axios';
-import { ajax_config } from '../../misc/ajaxConfig';
+import { auth_config } from '../../misc/ajaxConfig';
 
 // SAGA WORKERS ---
 
 // Load user async saga
 function* loadUserAsync() {
   try {
-    const res = yield call(() => axios.get('/api/profile', ajax_config ));
+    const res = yield call(() => axios.get('/api/profile', auth_config ));
   
     yield put(setUserProfileLoading());
     yield put(loadUser(res.data));
