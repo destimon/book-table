@@ -48,10 +48,6 @@ App.propTypes = {
   loadUserAsync: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    user: state.user
-  }
-}
+const mapStateToProps = (state) => ({ user: state.user })
 
 export default connect(mapStateToProps, { loadUserAsync })(App);
