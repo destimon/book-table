@@ -5,6 +5,7 @@ import {
 import {
   loadUser,
   successLoadUser,
+  setUserProfileLoading
 } from '../actions/userAction';
 import axios from 'axios';
 import { ajax_config } from '../../misc/ajaxConfig';
@@ -17,7 +18,7 @@ function* loadUserAsync() {
       return axios.get('/api/profile', ajax_config)
     });
   
-    console.log(res.data)
+    yield put(setUserProfileLoading());
     yield put(loadUser(res.data));
     yield put(successLoadUser());
   } catch (err) {

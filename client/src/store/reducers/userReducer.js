@@ -44,16 +44,17 @@ export const userReducer = (state = userInitialState, action) => {
         isAuthenticated: true,
         authError: ''
       }
+    // Load information about user
     case LOAD_USER:
       return {
         ...state,
-        user: action.payload,
-        userProfileLoading: false
+        user: action.payload
       }
     case SUCCESS_LOAD_USER:
       return {
         ...state,
-        isAuthenticated: true
+        isAuthenticated: true,
+        userProfileLoading: false
       }
     case FAILURE_LOAD_USER:
       return {

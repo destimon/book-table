@@ -67,17 +67,11 @@ export const signInUser = (user) => async (dispatch) => {
 } 
 
 // Load information about logged user
-export const loadUser = (userData) => ({ type: LOAD_USER, payload: userData })
-export const loadUserAsync = () => ({ type: LOAD_USER_ASYNC })
+export const loadUser = (userData) => ({ type: LOAD_USER, payload: userData });
+export const loadUserAsync = () => ({ type: LOAD_USER_ASYNC });
 export const successLoadUser = () => ( { type: SUCCESS_LOAD_USER } );
 export const failureLoadUser = () => ( { type: FAILURE_LOAD_USER } );
-
-// User profile loading process
-export const setUserProfileLoading = () => {
-  return {
-    type: SET_USER_PROFILE_LOADING
-  }
-}
+export const setUserProfileLoading = () => ( { type: SET_USER_PROFILE_LOADING });
 
 // Authorization clear error message
 export const clearAuthError = () => {
