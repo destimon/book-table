@@ -5,9 +5,13 @@ import {
   SET_USER_PROFILE_LOADING,
   SIGN_IN_USER,
   SUCCESS_LOAD_USER,
+  FAILURE_LOAD_USER,
   FAIL_AUTH,
   CLEAR_AUTH_ERROR,
 } from '../actions/types';
+import {
+  LOAD_USER_ASYNC
+} from '../sagas/sagaTypes';
 import axios from 'axios';
 
 // Register new user profile
@@ -63,30 +67,10 @@ export const signInUser = (user) => async (dispatch) => {
 } 
 
 // Load information about logged user
-export const loadUser = () => async (dispatch) => {
-  dispatch(setUserProfileLoading());
-  const config = {
-    headers: {
-      'x-auth-token': localStorage.getItem("token"),
-    }
-  }
-  try {
-    const res = await axios.get('/api/profile', config)
-
-    dispatch({
-      type: LOAD_USER,
-      payload: res.data
-    })
-    dispatch({
-      type: SUCCESS_LOAD_USER,
-    })
-  } catch (err) {
-    dispatch({
-      type: LOAD_USER,
-      payload: null
-    })
-  }
-}
+export const loadUser = (userData) => ({ type: LOAD_USER, payload: userData })
+export const loadUserAsync = () => ({ type: LOAD_USER_ASYNC })
+export const successLoadUser = () => ( { type: SUCCESS_LOAD_USER } );
+export const failureLoadUser = () => ( { type: FAILURE_LOAD_USER } );
 
 // User profile loading process
 export const setUserProfileLoading = () => {

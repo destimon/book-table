@@ -18,12 +18,12 @@ import BookContainer from './containers/BookContainer';
 import PrivateRoute from './components/Routing/PrivateRoute';
 
 // Redux
-import { loadUser } from './store/actions/userAction';
+import { loadUserAsync } from './store/actions/userAction';
 import { connect } from 'react-redux';
 
-const App = ({loadUser}) => {
+const App = ({loadUserAsync}) => {
   useEffect(() => {
-    loadUser();
+    loadUserAsync();
     // eslint-disable-next-line
   }, [])
 
@@ -45,7 +45,7 @@ const App = ({loadUser}) => {
 }
 
 App.propTypes = {
-  loadUser: PropTypes.func.isRequired,
+  loadUserAsync: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -54,4 +54,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, { loadUser })(App);
+export default connect(mapStateToProps, { loadUserAsync })(App);

@@ -4,9 +4,10 @@ import {
   SET_USER_PROFILE_LOADING,
   LOGOUT_USER,
   SUCCESS_LOAD_USER,
+  FAILURE_LOAD_USER,
   SIGN_IN_USER,
   FAIL_AUTH,
-  CLEAR_AUTH_ERROR,
+  CLEAR_AUTH_ERROR
 } from '../actions/types';
 
 const userInitialState = {
@@ -22,42 +23,48 @@ export const userReducer = (state = userInitialState, action) => {
     case CLEAR_AUTH_ERROR:
       return {
         ...state,
-        authError: '',
+        authError: ''
       }
     case SIGN_IN_USER:
       return {
         ...state,
         token: action.payload,
-        authError: '',
+        authError: ''
       }
     case FAIL_AUTH:
       return {
         ...state,
         isAuthenticated: false,
-        authError: action.payload,
+        authError: action.payload
       }
     case REGISTER_USER:
       return {
         ...state,
         token: action.payload,
         isAuthenticated: true,
-        authError: '',
+        authError: ''
       }
     case LOAD_USER:
       return {
         ...state,
         user: action.payload,
-        userProfileLoading: false,
+        userProfileLoading: false
       }
     case SUCCESS_LOAD_USER:
       return {
         ...state,
-        isAuthenticated: true,
+        isAuthenticated: true
+      }
+    case FAILURE_LOAD_USER:
+      return {
+        ...state,
+        user: null,
+        userProfileLoading: false
       }
     case SET_USER_PROFILE_LOADING:
       return {
         ...state,
-        userProfileLoading: true,
+        userProfileLoading: true
       }
     case LOGOUT_USER:
       localStorage.removeItem("token");
@@ -66,7 +73,7 @@ export const userReducer = (state = userInitialState, action) => {
         user: null,
         token: null,
         isAuthenticated: false,
-        authError: '',
+        authError: ''
       }
     default:
       return state

@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import Book from '../components/Books/Book';
-import { loadUser } from '../store/actions/userAction';
+import { loadUserAsync } from '../store/actions/userAction';
 import { 
   getBook, 
   clearBook, 
@@ -31,7 +31,7 @@ const BookContainer = (props) => {
     removeFinishedBook,
     getBookPersonalInfo,
     setFinBookLoading,
-    loadUser,
+    loadUserAsync,
     // Misc
     match
   } = props;
@@ -47,7 +47,7 @@ const BookContainer = (props) => {
   const addFinBook = useCallback(async () => {
     setFinBookLoading();
     await addFinishedBook(username, match.params.book);
-    loadUser();
+    loadUserAsync();
     // eslint-disable-next-line
   }, [username, match])
 
@@ -55,7 +55,7 @@ const BookContainer = (props) => {
   const remFinBook = useCallback(async () => {
     setFinBookLoading();
     await removeFinishedBook(username, match.params.book);
-    loadUser();
+    loadUserAsync();
     // eslint-disable-next-line
   }, [username, match])
 
@@ -74,7 +74,7 @@ const BookContainer = (props) => {
 
 Book.propTypes = {
   // Redux methods
-  loadUser: PropTypes.func.isRequired,
+  loadUserAsync: PropTypes.func.isRequired,
   getBook: PropTypes.func.isRequired,
   clearBook: PropTypes.func.isRequired,
   getBookPersonalInfo: PropTypes.func.isRequired,
@@ -102,7 +102,7 @@ export default connect(
     addFinishedBook, 
     getBookPersonalInfo, 
     removeFinishedBook,
-    loadUser,
+    loadUserAsync,
     setFinBookLoading
   }
 )(BookContainer);
