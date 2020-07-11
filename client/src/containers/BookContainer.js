@@ -33,7 +33,8 @@ const BookContainer = (props) => {
     setFinBookLoading,
     loadUserAsync,
     // Misc
-    match
+    match,
+    history
   } = props;
   
   useEffect(() => {
@@ -47,7 +48,7 @@ const BookContainer = (props) => {
   const addFinBook = useCallback(async () => {
     setFinBookLoading();
     await addFinishedBook(username, match.params.book);
-    loadUserAsync();
+    await loadUserAsync();
     // eslint-disable-next-line
   }, [username, match])
 
@@ -55,7 +56,7 @@ const BookContainer = (props) => {
   const remFinBook = useCallback(async () => {
     setFinBookLoading();
     await removeFinishedBook(username, match.params.book);
-    loadUserAsync();
+    await loadUserAsync();
     // eslint-disable-next-line
   }, [username, match])
 
@@ -69,10 +70,11 @@ const BookContainer = (props) => {
     addFinBook={addFinBook}
     finBookLoading={finBookLoading}
     isBookFinished={isBookFinished}
+    history={history}
   />
 }
 
-Book.propTypes = {
+BookContainer.propTypes = {
   // Redux methods
   loadUserAsync: PropTypes.func.isRequired,
   getBook: PropTypes.func.isRequired,

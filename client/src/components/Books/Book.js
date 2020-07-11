@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Preloader from '../layout/Preloader';
-import { useHistory } from 'react-router-dom';
 
 const Book = (props) => {
-  const history = useHistory();
   const {
     currentBookLoading,
     currentBook,
@@ -15,7 +13,8 @@ const Book = (props) => {
     addFinBook,
     finBookLoading,
 
-    isBookFinished
+    isBookFinished,
+    history
   } = props;
 
   if (currentBookLoading) return <Preloader />
@@ -75,7 +74,7 @@ const Book = (props) => {
 
 Book.propTypes = {
   currentBookLoading: PropTypes.bool.isRequired,
-  currentBook: PropTypes.object.isRequired,
+  currentBook: PropTypes.object,
 
   isAuthenticated: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
@@ -84,7 +83,7 @@ Book.propTypes = {
   addFinBook: PropTypes.func.isRequired,
   finBookLoading: PropTypes.bool.isRequired,
 
-  isBookFinished: PropTypes.bool.isRequired,
+  isBookFinished: PropTypes.bool,
 }
 
 export default Book;
