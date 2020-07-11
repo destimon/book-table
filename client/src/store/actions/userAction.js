@@ -74,15 +74,7 @@ export const failureLoadUser = () => ( { type: FAILURE_LOAD_USER } );
 export const setUserProfileLoading = () => ( { type: SET_USER_PROFILE_LOADING });
 
 // Authorization clear error message
-export const clearAuthError = () => {
-  return {
-    type: CLEAR_AUTH_ERROR,
-  }
-}
+export const clearAuthError = () => ({ type: CLEAR_AUTH_ERROR })
 
 // Logout current user
-export const logoutUser = () => {
-  return {
-    type: LOGOUT_USER,
-  }
-}
+export const logoutUser = () => ({ type: LOGOUT_USER })
