@@ -6,8 +6,11 @@ import {
   SUCCESS_LOAD_USER,
   FAILURE_LOAD_USER,
   SIGN_IN_USER,
-  FAIL_AUTH,
-  CLEAR_AUTH_ERROR
+  // FAIL_AUTH,
+  CLEAR_AUTH_ERROR,
+  FAILURE_SIGN_IN_USER,
+  SUCCESS_SIGN_IN_USER,
+  SET_SIGN_IN_USER_LOADING
 } from '../actions/types';
 
 const userInitialState = {
@@ -16,6 +19,7 @@ const userInitialState = {
   userProfileLoading: true,
   isAuthenticated: false,
   authError: '',
+  signInUserLoading: false
 }
 
 export const userReducer = (state = userInitialState, action) => {
@@ -25,18 +29,33 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         authError: ''
       }
+    // Sign in user
     case SIGN_IN_USER:
       return {
         ...state,
-        token: action.payload,
         authError: ''
       }
-    case FAIL_AUTH:
+    case SUCCESS_SIGN_IN_USER:
+      const token = localStorage.setItem("token", action.payload);
+      return {
+        ...state,
+        token,
+        signInUserLoading: false,
+        isAuthenticated: true
+      }
+    case FAILURE_SIGN_IN_USER:
       return {
         ...state,
         isAuthenticated: false,
-        authError: action.payload
+        authError: action.payload,
+        signInUserLoading: false
       }
+    case SET_SIGN_IN_USER_LOADING:
+      return {
+        ...state,
+        signInUserLoading: true
+      }
+    // Sign up user
     case REGISTER_USER:
       return {
         ...state,
