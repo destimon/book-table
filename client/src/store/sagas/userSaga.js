@@ -9,7 +9,8 @@ import {
   setUserProfileLoading,
   failureLoadUser,
 
-  setSignInUserLoading,
+  setAuthUserLoading,
+  
   signInUser,
   successSignInUser,
   failureSignInUser
@@ -37,7 +38,7 @@ function* signInUserAsync({ payload }) {
   try {
     const res = yield call(() => axios.post('/api/auth/signin', payload, json_content_config))
 
-    yield put(setSignInUserLoading());
+    yield put(setAuthUserLoading());
     yield put(signInUser());
     yield put(successSignInUser(res.data.token));
     yield put({ type: LOAD_USER_ASYNC });

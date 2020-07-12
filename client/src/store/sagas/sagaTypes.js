@@ -1,2 +1,3 @@
 export const LOAD_USER_ASYNC = 'LOAD_USER_ASYNC';
 export const SIGN_IN_USER_ASYNC = 'SIGN_IN_USER_ASYNC';
+export const SIGN_UP_USER_ASYNC = 'SIGN_UP_USER_ASYNC';

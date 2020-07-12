@@ -10,7 +10,7 @@ import {
   CLEAR_AUTH_ERROR,
   FAILURE_SIGN_IN_USER,
   SUCCESS_SIGN_IN_USER,
-  SET_SIGN_IN_USER_LOADING
+  SET_AUTH_USER_LOADING
 } from '../actions/types';
 
 const userInitialState = {
@@ -19,7 +19,7 @@ const userInitialState = {
   userProfileLoading: true,
   isAuthenticated: false,
   authError: '',
-  signInUserLoading: false
+  authUserLoading: false
 }
 
 export const userReducer = (state = userInitialState, action) => {
@@ -28,6 +28,12 @@ export const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         authError: ''
+      }
+    // User authorization (signin/signup)
+    case SET_AUTH_USER_LOADING:
+      return {
+        ...state,
+        authUserLoading: true
       }
     // Sign in user
     case SIGN_IN_USER:
@@ -40,7 +46,7 @@ export const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         token,
-        signInUserLoading: false,
+        authUserLoading: false,
         isAuthenticated: true
       }
     case FAILURE_SIGN_IN_USER:
@@ -48,12 +54,7 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         isAuthenticated: false,
         authError: action.payload,
-        signInUserLoading: false
-      }
-    case SET_SIGN_IN_USER_LOADING:
-      return {
-        ...state,
-        signInUserLoading: true
+        authUserLoading: false
       }
     // Sign up user
     case REGISTER_USER:
