@@ -37,7 +37,6 @@ function* loadUserAsync() {
 
 // Sign up user async saga
 function* signUpUserAsync({ payload }) {
-  console.log(payload)
   try {
     const res = yield call(() => axios.post('/api/auth/signup', payload, json_content_config))
 
