@@ -1,16 +1,17 @@
 import {
-  REGISTER_USER,
   LOAD_USER,
   SET_USER_PROFILE_LOADING,
-  LOGOUT_USER,
   SUCCESS_LOAD_USER,
   FAILURE_LOAD_USER,
+  
+  SIGN_UP_USER,
   SIGN_IN_USER,
-  // FAIL_AUTH,
   CLEAR_AUTH_ERROR,
-  FAILURE_SIGN_IN_USER,
-  SUCCESS_SIGN_IN_USER,
-  SET_AUTH_USER_LOADING
+  FAILURE_AUTH_USER,
+  SUCCESS_AUTH_USER,
+  SET_AUTH_USER_LOADING,
+
+  LOGOUT_USER
 } from '../actions/types';
 
 const userInitialState = {
@@ -35,13 +36,7 @@ export const userReducer = (state = userInitialState, action) => {
         ...state,
         authUserLoading: true
       }
-    // Sign in user
-    case SIGN_IN_USER:
-      return {
-        ...state,
-        authError: ''
-      }
-    case SUCCESS_SIGN_IN_USER:
+    case SUCCESS_AUTH_USER:
       const token = localStorage.setItem("token", action.payload);
       return {
         ...state,
@@ -49,19 +44,23 @@ export const userReducer = (state = userInitialState, action) => {
         authUserLoading: false,
         isAuthenticated: true
       }
-    case FAILURE_SIGN_IN_USER:
+    case FAILURE_AUTH_USER:
       return {
         ...state,
         isAuthenticated: false,
         authError: action.payload,
         authUserLoading: false
       }
-    // Sign up user
-    case REGISTER_USER:
+    // Sign in user
+    case SIGN_IN_USER:
       return {
         ...state,
-        token: action.payload,
-        isAuthenticated: true,
+        authError: ''
+      }
+    // Sign up user
+    case SIGN_UP_USER:
+      return {
+        ...state,
         authError: ''
       }
     // Load information about user

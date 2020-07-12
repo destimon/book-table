@@ -1,60 +1,36 @@
 import {
-  REGISTER_USER,
   LOAD_USER,
-  LOGOUT_USER,
   SET_USER_PROFILE_LOADING,
-  SIGN_IN_USER,
   SUCCESS_LOAD_USER,
   FAILURE_LOAD_USER,
-  FAIL_AUTH,
+
+  SIGN_IN_USER,
+  SIGN_UP_USER,
   CLEAR_AUTH_ERROR,
   SET_AUTH_USER_LOADING,
-  SUCCESS_SIGN_IN_USER,
-  FAILURE_SIGN_IN_USER,
+  SUCCESS_AUTH_USER,
+  FAILURE_AUTH_USER,
+  
+  
+  LOGOUT_USER,
 } from './types';
 import {
   LOAD_USER_ASYNC,
   SIGN_IN_USER_ASYNC,
   SIGN_UP_USER_ASYNC
 } from '../sagas/sagaTypes';
-import axios from 'axios';
-
-// Register new user profile
-export const registerUser = (user) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  try {
-    const res = await axios.post('/api/auth/signup', user, config);
-
-    localStorage.setItem("token", res.data.token);
-    dispatch({
-      type: REGISTER_USER,
-      payload: res.data.token
-    });
-    dispatch(loadUser());
-  } catch (err) {
-    if (err.response) {
-      dispatch({
-        type: FAIL_AUTH,
-        payload: err.response.data.msg
-      })
-    }
-  }
-}
-
-export const signUpUserAsync = (formData) => ({ type: SIGN_UP_USER_ASYNC, payload: formData });
-
+              
 // Authorization (signup/signin)
 export const setAuthUserLoading = () => ({ type: SET_AUTH_USER_LOADING });
+export const successAuthUser = (token) => ({ type: SUCCESS_AUTH_USER, payload: token });
+export const failureAuthUser = (authError) => ({ type: FAILURE_AUTH_USER, payload: authError })
+
+// Sign up new user profile
+export const signUpUser = () => ({ type: SIGN_UP_USER });
+export const signUpUserAsync = (formData) => ({ type: SIGN_UP_USER_ASYNC, payload: formData });
 
 // Sign in to user's profile
 export const signInUser = () => ({ type: SIGN_IN_USER });
-export const successSignInUser = (token) => ({ type: SUCCESS_SIGN_IN_USER, payload: token });
-export const failureSignInUser = (authError) => ({ type: FAILURE_SIGN_IN_USER, payload: authError })
 export const signInUserAsync = (formData) => ({ type: SIGN_IN_USER_ASYNC, payload: formData });
 
 

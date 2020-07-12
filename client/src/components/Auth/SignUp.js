@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import { registerUser } from '../../store/actions/userAction';
+import { signUpUserAsync } from '../../store/actions/userAction';
 import { Formik } from 'formik';
 
 const SignUp = (props) => {
@@ -10,10 +10,10 @@ const SignUp = (props) => {
       isAuthenticated,
     },
     history, 
-    registerUser,
+    signUpUserAsync,
   } = props;
 
-  // Validate sign up/register form
+  // Validate sign up form
   const validateForm = useCallback((values) => {
     const errors = {};
 
@@ -31,16 +31,16 @@ const SignUp = (props) => {
     return errors;
   }, [])
 
-  // Submit sign up/register form
+  // Submit sign up form
   const submitForm = useCallback(async (values, { setSubmitting }) => {
-    await registerUser({
+    await signUpUserAsync({
       username: values.username,
       password: values.password,
       bio: values.bio,
     });
     setSubmitting(false);
     (isAuthenticated) ? history.push('/') : history.push('/auth');
-  }, [isAuthenticated, history, registerUser])
+  }, [isAuthenticated, history, signUpUserAsync])
 
   return (
     <Formik
@@ -116,8 +116,8 @@ const mapStateToProps = (state) => ({ user: state.user })
 
 SignUp.propTypes = {
   user: PropTypes.object.isRequired,
-  registerUser: PropTypes.func.isRequired,
+  signUpUserAsync: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 }
 
-export default connect(mapStateToProps, { registerUser })(SignUp);
+export default connect(mapStateToProps, { signUpUserAsync })(SignUp);
