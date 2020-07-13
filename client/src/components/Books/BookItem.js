@@ -11,6 +11,10 @@ const BookItem = ({ book }) => {
     history.push(`/books/${book.id}`)
   }, [book, history]);
 
+  const showAuthors = useCallback(() => (
+    book.authors.map((author, index) => (<p key={index}>{author}</p> ))
+  ), [book])
+
   const bookDescription = useMemo(() => (
     _.truncate(book.description, { 'length': 300 })
   ), [book.description]);
@@ -31,7 +35,7 @@ const BookItem = ({ book }) => {
           <blockquote>
             {
               book.authors &&
-              book.authors.map((author, index) => (<p key={index}>{author}</p> ))
+              showAuthors()
             }
           </blockquote>
         </div>
