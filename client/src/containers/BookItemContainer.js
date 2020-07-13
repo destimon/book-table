@@ -4,24 +4,33 @@ import BookItem from '../components/Books/BookItem';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-const BookItemContainer = ({ book }) => {
+const BookItemContainer = (props) => {
+  const {
+    book,
+    book: {
+      id,
+      title,
+      description,
+      authors
+    }
+  } = props;
   const history = useHistory();
 
   const showBook = useCallback(() => {
-    history.push(`/books/${book.id}`)
-  }, [book, history]);
+    history.push(`/books/${id}`)
+  }, [id, history]);
 
   const showAuthors = useCallback(() => (
-    book.authors.map((author, index) => (<p key={index}>{author}</p> ))
-  ), [book])
+    authors.map((author, index) => (<p key={index}>{author}</p> ))
+  ), [authors])
 
   const bookDescription = useMemo(() => (
-    _.truncate(book.description, { 'length': 300 })
-  ), [book.description]);
+    _.truncate(description, { 'length': 300 })
+  ), [description]);
 
   const bookTitle = useMemo(() => (
-    _.truncate(book.title, { 'length': 100 })
-  ), [book.title])
+    _.truncate(title, { 'length': 100 })
+  ), [title])
  
   return <BookItem
     book={book}
