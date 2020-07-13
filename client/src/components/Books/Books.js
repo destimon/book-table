@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux';
 import { getBooks } from '../../store/actions/bookAction';
-import BookItem from './BookItem';
+import BookItemContainer from '../../containers/BookItemContainer';
 import Preloader from '../layout/Preloader';
 import PropTypes from 'prop-types'
 
@@ -22,7 +22,7 @@ const Books = (props) => {
           <ul className="collection">
           {
             books.map((book, index) => (
-              <BookItem key={index} book={book} />
+              <BookItemContainer key={index} book={book} />
             ))
           }
         </ul>
