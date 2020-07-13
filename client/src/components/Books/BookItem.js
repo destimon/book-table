@@ -1,6 +1,7 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from "react-router-dom";
+import _ from 'lodash';
 import '../../assets/main.scss';
 
 const BookItem = ({ book }) => {
@@ -9,6 +10,10 @@ const BookItem = ({ book }) => {
   const showBook = useCallback(() => {
     history.push(`/books/${book.id}`)
   }, [book, history]);
+
+  const bookDescription = useMemo(() => (
+    _.truncate(book.description, { 'length': 300 })
+  ), [book.description]);
 
   return (
     <li className="collection-item book-item" onClick={showBook}>
@@ -29,7 +34,7 @@ const BookItem = ({ book }) => {
         <div className="col s6 m8 l10 xl10">
           <h5>{book.title}</h5>
           <div className="divider"></div>
-          <p>Description...</p>
+          <p>{bookDescription}</p>
           <small>{book.publishedDate}</small>
         </div>
       </div>

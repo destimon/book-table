@@ -83,7 +83,7 @@ Book.propTypes = {
   addFinBook: PropTypes.func.isRequired,
   finBookLoading: PropTypes.bool.isRequired,
 
-  isBookFinished: PropTypes.bool,
+  isBookFinished: PropTypes.bool
 }
 
 export default Book;
