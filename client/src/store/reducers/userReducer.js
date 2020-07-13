@@ -78,7 +78,7 @@ export const userReducer = (state = userInitialState, action) => {
     case FAILURE_LOAD_USER:
       return {
         ...state,
-        user: null,
+        user: {},
         userProfileLoading: false
       }
     case SET_USER_PROFILE_LOADING:
