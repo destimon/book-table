@@ -1,29 +1,24 @@
-import React, { useEffect, useCallback } from 'react'
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
-import Book from '../components/Books/Book';
-import { loadUserAsync } from '../store/actions/userAction';
-import { 
-  getBook, 
-  clearBook, 
+import React, { useEffect, useCallback } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Book from "../components/Books/Book";
+import { loadUserAsync } from "../store/actions/userAction";
+import {
+  getBook,
+  clearBook,
   addFinishedBook,
   getBookPersonalInfo,
   removeFinishedBook,
   setFinBookLoading,
-} from '../store/actions/bookAction';
+} from "../store/actions/bookAction";
 
 const BookContainer = (props) => {
   const {
     user: {
       isAuthenticated,
-      user: { username }
+      user: { username },
     },
-    book: {
-      currentBook,
-      currentBookLoading,
-      isBookFinished,
-      finBookLoading
-    },
+    book: { currentBook, currentBookLoading, isBookFinished, finBookLoading },
     // Redux methods
     getBook,
     clearBook,
@@ -34,15 +29,15 @@ const BookContainer = (props) => {
     loadUserAsync,
     // Misc
     match,
-    history
+    history,
   } = props;
-  
+
   useEffect(() => {
     getBook(match.params.book);
-    if (isAuthenticated) getBookPersonalInfo(username, match.params.book)
+    if (isAuthenticated) getBookPersonalInfo(username, match.params.book);
     return () => clearBook();
     // eslint-disable-next-line
-  }, [username, isAuthenticated])
+  }, [username, isAuthenticated]);
 
   // Add current book to finished books of user
   const addFinBook = useCallback(async () => {
@@ -50,7 +45,7 @@ const BookContainer = (props) => {
     await addFinishedBook(username, match.params.book);
     await loadUserAsync();
     // eslint-disable-next-line
-  }, [username, match])
+  }, [username, match]);
 
   // Delete current book from finished books of user
   const remFinBook = useCallback(async () => {
@@ -58,21 +53,21 @@ const BookContainer = (props) => {
     await removeFinishedBook(username, match.params.book);
     await loadUserAsync();
     // eslint-disable-next-line
-  }, [username, match])
+  }, [username, match]);
 
-  return <Book 
-    currentBookLoading={currentBookLoading}
-    currentBook={currentBook}
-
-    isAuthenticated={isAuthenticated}
-
-    remFinBook={remFinBook}
-    addFinBook={addFinBook}
-    finBookLoading={finBookLoading}
-    isBookFinished={isBookFinished}
-    history={history}
-  />
-}
+  return (
+    <Book
+      currentBookLoading={currentBookLoading}
+      currentBook={currentBook}
+      isAuthenticated={isAuthenticated}
+      remFinBook={remFinBook}
+      addFinBook={addFinBook}
+      finBookLoading={finBookLoading}
+      isBookFinished={isBookFinished}
+      history={history}
+    />
+  );
+};
 
 BookContainer.propTypes = {
   // Redux methods
@@ -89,22 +84,19 @@ BookContainer.propTypes = {
   // Misc
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
-}
+};
 
 const mapStateToProps = (state) => ({
   book: state.book,
   user: state.user,
-})
+});
 
-export default connect(
-  mapStateToProps, 
-  { 
-    getBook, 
-    clearBook, 
-    addFinishedBook, 
-    getBookPersonalInfo, 
-    removeFinishedBook,
-    loadUserAsync,
-    setFinBookLoading
-  }
-)(BookContainer);
+export default connect(mapStateToProps, {
+  getBook,
+  clearBook,
+  addFinishedBook,
+  getBookPersonalInfo,
+  removeFinishedBook,
+  loadUserAsync,
+  setFinBookLoading,
+})(BookContainer);

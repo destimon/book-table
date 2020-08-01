@@ -1,18 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import '../../assets/main.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import "../../assets/main.scss";
 
 const BookItem = (props) => {
   const {
-    book: {
-      thumbnail,
-      authors,
-      publishedDate
-    },
+    book: { thumbnail, authors, publishedDate },
     showBook,
     showAuthors,
     bookTitle,
-    bookDescription
+    bookDescription,
   } = props;
 
   return (
@@ -20,11 +16,11 @@ const BookItem = (props) => {
       <div className="row">
         <div className="col s6 m4 l2 xl2">
           <img
-            alt="book" 
-            className="book-image" 
-            src={thumbnail || '/noimage.jpeg'} 
+            alt="book"
+            className="book-image"
+            src={thumbnail || "/noimage.jpeg"}
           />
-          <blockquote>{ authors && showAuthors() }</blockquote>
+          <blockquote>{authors && showAuthors()}</blockquote>
         </div>
         <div className="col s6 m8 l10 xl10">
           <h5>{bookTitle}</h5>
@@ -34,16 +30,15 @@ const BookItem = (props) => {
         </div>
       </div>
     </li>
-  )
-}
+  );
+};
 
 BookItem.propTypes = {
   book: PropTypes.object.isRequired,
   showBook: PropTypes.func.isRequired,
   showAuthors: PropTypes.func.isRequired,
   bookTitle: PropTypes.string,
-  bookDescription: PropTypes.string
-}
-
+  bookDescription: PropTypes.string,
+};
 
 export default BookItem;

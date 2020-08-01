@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
-import SearchBook from '../components/Books/SearchBook';
-import Books from '../components/Books/Books';
+import React, { Fragment } from "react";
+import SearchBook from "../components/Books/SearchBook";
+import Books from "../components/Books/Books";
 
 const Home = () => {
   return (
@@ -8,7 +8,7 @@ const Home = () => {
       <SearchBook />
       <Books />
     </Fragment>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const config = require('./vars');
+const mongoose = require("mongoose");
+const config = require("./vars");
 
 module.exports = async () => {
   try {
@@ -8,11 +8,11 @@ module.exports = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
-    })
+    });
 
-    console.log('Mongoose connected');
+    console.log("Mongoose connected");
   } catch (err) {
-    console.log('Unable to connect mongoose')
-    console.log(err)
+    console.log("Unable to connect mongoose");
+    console.log(err);
   }
-}
+};

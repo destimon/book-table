@@ -1,32 +1,30 @@
-import { put, takeEvery, call } from 'redux-saga/effects'
+import { put, takeEvery, call } from "redux-saga/effects";
 import {
   LOAD_USER_ASYNC,
   SIGN_IN_USER_ASYNC,
-  SIGN_UP_USER_ASYNC
-} from './sagaTypes';
+  SIGN_UP_USER_ASYNC,
+} from "./sagaTypes";
 import {
   loadUser,
   successLoadUser,
   setUserProfileLoading,
   failureLoadUser,
-
-  
   setAuthUserLoading,
   signInUser,
   signUpUser,
   successAuthUser,
-  failureAuthUser
-} from '../actions/userAction';
-import axios from 'axios';
-import { auth_config, json_content_config } from '../../misc/ajaxConfig';
+  failureAuthUser,
+} from "../actions/userAction";
+import axios from "axios";
+import { auth_config, json_content_config } from "../../misc/ajaxConfig";
 
 // SAGA WORKERS ---
 
 // Load user async saga
 function* loadUserAsync() {
   try {
-    const res = yield call(() => axios.get('/api/profile', auth_config() ));
-  
+    const res = yield call(() => axios.get("/api/profile", auth_config()));
+
     yield put(setUserProfileLoading());
     yield put(loadUser(res.data));
     yield put(successLoadUser());
@@ -38,7 +36,9 @@ function* loadUserAsync() {
 // Sign up user async saga
 function* signUpUserAsync({ payload }) {
   try {
-    const res = yield call(() => axios.post('/api/auth/signup', payload, json_content_config))
+    const res = yield call(() =>
+      axios.post("/api/auth/signup", payload, json_content_config)
+    );
 
     yield put(setAuthUserLoading());
     yield put(signUpUser());
@@ -46,13 +46,15 @@ function* signUpUserAsync({ payload }) {
     yield put({ type: LOAD_USER_ASYNC });
   } catch (err) {
     yield put(failureAuthUser(err.response.data.msg));
-  } 
+  }
 }
 
 // Sign in user async saga
 function* signInUserAsync({ payload }) {
   try {
-    const res = yield call(() => axios.post('/api/auth/signin', payload, json_content_config))
+    const res = yield call(() =>
+      axios.post("/api/auth/signin", payload, json_content_config)
+    );
 
     yield put(setAuthUserLoading());
     yield put(signInUser());
@@ -65,6 +67,12 @@ function* signInUserAsync({ payload }) {
 
 // SAGA WATCHERS ---
 
-export function* watchLoadUserAsync() { yield takeEvery(LOAD_USER_ASYNC, loadUserAsync) };
-export function* watchSignInUserAsync() { yield takeEvery(SIGN_IN_USER_ASYNC, signInUserAsync) };
-export function* watchSignUpUserAsync() { yield takeEvery(SIGN_UP_USER_ASYNC, signUpUserAsync ) };
+export function* watchLoadUserAsync() {
+  yield takeEvery(LOAD_USER_ASYNC, loadUserAsync);
+}
+export function* watchSignInUserAsync() {
+  yield takeEvery(SIGN_IN_USER_ASYNC, signInUserAsync);
+}
+export function* watchSignUpUserAsync() {
+  yield takeEvery(SIGN_UP_USER_ASYNC, signUpUserAsync);
+}

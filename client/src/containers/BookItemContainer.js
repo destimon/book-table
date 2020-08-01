@@ -1,49 +1,46 @@
-import React, { useMemo, useCallback } from 'react';
-import { useHistory } from 'react-router';
-import BookItem from '../components/Books/BookItem';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
+import React, { useMemo, useCallback } from "react";
+import { useHistory } from "react-router";
+import BookItem from "../components/Books/BookItem";
+import PropTypes from "prop-types";
+import _ from "lodash";
 
 const BookItemContainer = (props) => {
   const {
     book,
-    book: {
-      id,
-      title,
-      description,
-      authors
-    }
+    book: { id, title, description, authors },
   } = props;
   const history = useHistory();
 
   const showBook = useCallback(() => {
-    history.push(`/books/${id}`)
+    history.push(`/books/${id}`);
   }, [id, history]);
 
-  const showAuthors = useCallback(() => (
-    authors.map((author, index) => (<p key={index}>{author}</p> ))
-  ), [authors])
+  const showAuthors = useCallback(
+    () => authors.map((author, index) => <p key={index}>{author}</p>),
+    [authors]
+  );
 
-  const bookDescription = useMemo(() => (
-    _.truncate(description, { 'length': 300 })
-  ), [description]);
+  const bookDescription = useMemo(
+    () => _.truncate(description, { length: 300 }),
+    [description]
+  );
 
-  const bookTitle = useMemo(() => (
-    _.truncate(title, { 'length': 100 })
-  ), [title])
- 
-  return <BookItem
-    book={book}
-    history={history}
-    showBook={showBook}
-    showAuthors={showAuthors}
-    bookDescription={bookDescription}
-    bookTitle={bookTitle}
-  />
-}
+  const bookTitle = useMemo(() => _.truncate(title, { length: 100 }), [title]);
 
-BookItemContainer.propTypes ={
-  book: PropTypes.object
-}
+  return (
+    <BookItem
+      book={book}
+      history={history}
+      showBook={showBook}
+      showAuthors={showAuthors}
+      bookDescription={bookDescription}
+      bookTitle={bookTitle}
+    />
+  );
+};
 
-export default BookItemContainer
+BookItemContainer.propTypes = {
+  book: PropTypes.object,
+};
+
+export default BookItemContainer;

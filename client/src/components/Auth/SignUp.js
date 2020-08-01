@@ -1,15 +1,13 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
-import { signUpUserAsync } from '../../store/actions/userAction';
-import { Formik } from 'formik';
+import React, { useCallback } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { signUpUserAsync } from "../../store/actions/userAction";
+import { Formik } from "formik";
 
 const SignUp = (props) => {
   const {
-    user: {
-      isAuthenticated,
-    },
-    history, 
+    user: { isAuthenticated },
+    history,
     signUpUserAsync,
   } = props;
 
@@ -18,36 +16,39 @@ const SignUp = (props) => {
     const errors = {};
 
     if (!values.username) {
-      errors.username = '* Username required';
+      errors.username = "* Username required";
     } else if (values.username.length > 15) {
-      errors.username = '* Username too long, 15 symbols maximum';
+      errors.username = "* Username too long, 15 symbols maximum";
     }
 
     if (!values.password) {
-      errors.password = '* Password required';
+      errors.password = "* Password required";
     } else if (values.password.length < 6) {
-      errors.password = '* Password too short, 6 symbols minimum';
+      errors.password = "* Password too short, 6 symbols minimum";
     }
     return errors;
-  }, [])
+  }, []);
 
   // Submit sign up form
-  const submitForm = useCallback(async (values, { setSubmitting }) => {
-    await signUpUserAsync({
-      username: values.username,
-      password: values.password,
-      bio: values.bio,
-    });
-    setSubmitting(false);
-    (isAuthenticated) ? history.push('/') : history.push('/auth');
-  }, [isAuthenticated, history, signUpUserAsync])
+  const submitForm = useCallback(
+    async (values, { setSubmitting }) => {
+      await signUpUserAsync({
+        username: values.username,
+        password: values.password,
+        bio: values.bio,
+      });
+      setSubmitting(false);
+      isAuthenticated ? history.push("/") : history.push("/auth");
+    },
+    [isAuthenticated, history, signUpUserAsync]
+  );
 
   return (
     <Formik
-      initialValues={{ 
-        username: '', 
-        password: '', 
-        bio: '' 
+      initialValues={{
+        username: "",
+        password: "",
+        bio: "",
       }}
       validate={validateForm}
       onSubmit={submitForm}
@@ -89,9 +90,9 @@ const SignUp = (props) => {
               </div>
               <div className="input-field">
                 <input
-                  id="bio" 
-                  type='text'
-                  name='bio'
+                  id="bio"
+                  type="text"
+                  name="bio"
                   className="validate"
                   value={values.bio}
                   onChange={handleChange}
@@ -99,8 +100,8 @@ const SignUp = (props) => {
                 <label htmlFor="bio">Bio</label>
               </div>
               <input
-                value="Sign up" 
-                type='submit'
+                value="Sign up"
+                type="submit"
                 className="right btn blue-grey darken-4"
                 disabled={isSubmitting}
               />
@@ -109,15 +110,15 @@ const SignUp = (props) => {
         </div>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state) => ({ user: state.user })
+const mapStateToProps = (state) => ({ user: state.user });
 
 SignUp.propTypes = {
   user: PropTypes.object.isRequired,
   signUpUserAsync: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-}
+};
 
 export default connect(mapStateToProps, { signUpUserAsync })(SignUp);

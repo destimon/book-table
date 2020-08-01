@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 let bcrypt_cost = 12;
 
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   passwordHash: {
     type: String,
-    required: true
+    required: true,
   },
   bio: {
     type: String,
@@ -27,20 +27,20 @@ const UserSchema = mongoose.Schema({
       },
       grade: {
         type: Number,
-      }
-    }
-  ]
+      },
+    },
+  ],
 });
 
 UserSchema.statics.hashPassword = (passwordRaw, cb) => {
-  if (process.env.NODE_ENV === 'test') {
-    bcrypt_cost = 1
+  if (process.env.NODE_ENV === "test") {
+    bcrypt_cost = 1;
   }
-  bcrypt.hash(passwordRaw, bcrypt_cost, cb)
-}
+  bcrypt.hash(passwordRaw, bcrypt_cost, cb);
+};
 
 UserSchema.statics.comparePasswordAndHash = (password, passwordHash, cb) => {
-  bcrypt.compare(password, passwordHash, cb)
-}
+  bcrypt.compare(password, passwordHash, cb);
+};
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model("user", UserSchema);

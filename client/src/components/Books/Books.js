@@ -1,45 +1,39 @@
-import React, { Fragment } from 'react'
-import { connect } from 'react-redux';
-import { getBooks } from '../../store/actions/bookAction';
-import BookItemContainer from '../../containers/BookItemContainer';
-import Preloader from '../layout/Preloader';
-import PropTypes from 'prop-types'
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import { getBooks } from "../../store/actions/bookAction";
+import BookItemContainer from "../../containers/BookItemContainer";
+import Preloader from "../layout/Preloader";
+import PropTypes from "prop-types";
 
 const Books = (props) => {
   const {
-    book: {
-      books,
-      booksLoading
-    }
+    book: { books, booksLoading },
   } = props;
 
-  if (booksLoading) return <Preloader />
+  if (booksLoading) return <Preloader />;
 
   return (
     <Fragment>
-      {
-        (books.length > 0) ? (
-          <ul className="collection">
-          {
-            books.map((book, index) => (
-              <BookItemContainer key={index} book={book} />
-            ))
-          }
+      {books.length > 0 ? (
+        <ul className="collection">
+          {books.map((book, index) => (
+            <BookItemContainer key={index} book={book} />
+          ))}
         </ul>
-        ) : (
-          <div className="container">
-            <i className="material-icons">error</i><span>No data</span>
-          </div>
-        )
-      }
+      ) : (
+        <div className="container">
+          <i className="material-icons">error</i>
+          <span>No data</span>
+        </div>
+      )}
     </Fragment>
-  )
-}
+  );
+};
 
 Books.propTypes = {
-  book: PropTypes.object.isRequired
-}
+  book: PropTypes.object.isRequired,
+};
 
-const mapStateToProps = (state) => ({ book: state.book })
+const mapStateToProps = (state) => ({ book: state.book });
 
 export default connect(mapStateToProps, { getBooks })(Books);

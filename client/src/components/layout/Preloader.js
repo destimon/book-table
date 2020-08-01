@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Preloader = () => (
   <div className="center-align">
@@ -16,6 +16,6 @@ const Preloader = () => (
       </div>
     </div>
   </div>
-)
+);
 
 export default Preloader;
