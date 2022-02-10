@@ -10,7 +10,7 @@
     "formik": "^2.1.4",
     "google-books-search-2": "git+https://git@github.com/destimon/node-google-books-search-2.git",
     "install": "^0.13.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
